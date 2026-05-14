@@ -266,6 +266,63 @@
     --video-panel-control-background: #111111;
     --video-panel-control-color: #ffffff;
     --video-panel-control-inset: var(--space-md);
+
+    /* Kickstart rewards variables */
+    --rewards-background: #ffffff;
+    --rewards-color: var(--color-navy-blue);
+    --rewards-padding-block: var(--space-xl);
+    --rewards-padding-inline: var(--space-lg);
+    --rewards-container-width: 65rem;
+    --rewards-min-block-size: 31rem;
+    --rewards-media-image: linear-gradient(
+      135deg,
+      var(--color-sky-blue) 0%,
+      #f2c7b7 42%,
+      var(--color-blue-grey) 100%
+    );
+    --rewards-media-position: left center;
+    --rewards-media-size: cover;
+    --rewards-media-inline-size: 57%;
+    --rewards-media-overlay: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0 56%,
+      rgba(255, 255, 255, 0.76) 75%,
+      #ffffff 100%
+    );
+    --rewards-eyebrow-color: var(--color-magenta-accent);
+    --rewards-eyebrow-font-size: var(--font-size-body-large);
+    --rewards-eyebrow-font-weight: var(--font-weight-bold);
+    --rewards-title-color: var(--color-navy-blue);
+    --rewards-title-font-size: var(--font-size-h3);
+    --rewards-title-font-weight: var(--font-weight-bold);
+    --rewards-title-line-height: 0.95;
+    --rewards-title-letter-spacing: -0.02em;
+    --rewards-prize-panel-width: 35rem;
+    --rewards-prize-gap: var(--space-md);
+    --prize-card-background: rgba(255, 255, 255, 0.92);
+    --prize-card-border-color: color-mix(
+      in srgb,
+      var(--color-blue-grey) 30%,
+      transparent
+    );
+    --prize-card-radius: var(--radius-md);
+    --prize-card-padding: var(--space-md);
+    --prize-card-icon-size: 4rem;
+    --prize-card-icon-color: var(--color-navy-blue);
+    --prize-card-kicker-color: var(--color-navy-blue);
+    --prize-card-kicker-font-size: var(--font-size-body-large);
+    --prize-card-kicker-font-weight: var(--font-weight-bold);
+    --prize-card-kicker-line-height: 1;
+    --prize-card-amount-color: var(--color-magenta-accent);
+    --prize-card-amount-font-size: 4rem;
+    --prize-card-amount-font-weight: var(--font-weight-extra-bold);
+    --prize-card-amount-line-height: 0.95;
+    --prize-card-label-color: var(--color-navy-blue);
+    --prize-card-label-font-size: var(--font-size-h3);
+    --prize-card-label-font-weight: var(--font-weight-bold);
+    --prize-card-label-line-height: 1;
+    --prize-card-small-amount-font-size: var(--font-size-h3);
+    --prize-card-small-label-font-size: var(--font-size-body-large);
   }
 }
 
@@ -853,6 +910,191 @@
 
     .kickstart-results-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .kickstart-rewards {
+    background: var(--rewards-background);
+    color: var(--rewards-color);
+    isolation: isolate;
+    min-block-size: var(--rewards-min-block-size);
+    overflow: hidden;
+    padding-block: var(--rewards-padding-block);
+    padding-inline: var(--rewards-padding-inline);
+    position: relative;
+  }
+
+  .kickstart-rewards::before {
+    background: var(--rewards-media-overlay);
+    content: "";
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .kickstart-rewards__media {
+    background-image: var(--rewards-media-image);
+    background-position: var(--rewards-media-position);
+    background-size: var(--rewards-media-size);
+    inset-block: 0;
+    inset-inline-start: 0;
+    position: absolute;
+    width: var(--rewards-media-inline-size);
+    z-index: -2;
+  }
+
+  .kickstart-rewards__inner {
+    display: grid;
+    gap: var(--space-xl);
+    grid-template-columns: minmax(13rem, 0.65fr) minmax(
+        26rem,
+        var(--rewards-prize-panel-width)
+      );
+    width: min(100%, var(--rewards-container-width));
+    margin-inline: auto;
+    position: relative;
+  }
+
+  .kickstart-rewards__headline {
+    align-self: start;
+    text-transform: uppercase;
+  }
+
+  .kickstart-rewards__eyebrow {
+    color: var(--rewards-eyebrow-color);
+    font-size: var(--rewards-eyebrow-font-size);
+    font-weight: var(--rewards-eyebrow-font-weight);
+    line-height: 1;
+    max-width: none;
+  }
+
+  .kickstart-rewards__title {
+    color: var(--rewards-title-color);
+    font-size: var(--rewards-title-font-size);
+    font-weight: var(--rewards-title-font-weight);
+    letter-spacing: var(--rewards-title-letter-spacing);
+    line-height: var(--rewards-title-line-height);
+    max-width: 9.5ch;
+  }
+
+  .kickstart-rewards__prizes {
+    display: grid;
+    gap: var(--rewards-prize-gap);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kickstart-prize-card {
+    align-items: center;
+    background: var(--prize-card-background);
+    border: var(--border-width) solid var(--prize-card-border-color);
+    border-radius: var(--prize-card-radius);
+    display: grid;
+    gap: var(--space-md);
+    grid-template-columns: auto minmax(0, 1fr);
+    padding: var(--prize-card-padding);
+  }
+
+  .kickstart-prize-card--grand {
+    grid-column: 1 / -1;
+    padding: var(--space-xl);
+  }
+
+  .kickstart-prize-card__icon {
+    align-items: center;
+    border: var(--border-width) solid
+      color-mix(in srgb, var(--prize-card-icon-color) 30%, transparent);
+    border-radius: var(--radius-pill);
+    color: var(--prize-card-icon-color);
+    display: inline-flex;
+    inline-size: var(--prize-card-icon-size);
+    justify-content: center;
+    min-block-size: var(--prize-card-icon-size);
+    position: relative;
+  }
+
+  .kickstart-prize-card__icon::before {
+    background: currentColor;
+    block-size: 42%;
+    border-radius: 0 0 0.35rem 0.35rem;
+    content: "";
+    inline-size: 46%;
+  }
+
+  .kickstart-prize-card__body {
+    min-width: 0;
+  }
+
+  .kickstart-prize-card__kicker {
+    color: var(--prize-card-kicker-color);
+    font-size: var(--prize-card-kicker-font-size);
+    font-weight: var(--prize-card-kicker-font-weight);
+    line-height: var(--prize-card-kicker-line-height);
+    max-width: none;
+    text-transform: uppercase;
+  }
+
+  .kickstart-prize-card__amount {
+    color: var(--prize-card-amount-color);
+    font-size: var(--prize-card-small-amount-font-size);
+    font-weight: var(--prize-card-amount-font-weight);
+    line-height: var(--prize-card-amount-line-height);
+  }
+
+  .kickstart-prize-card--grand .kickstart-prize-card__amount {
+    font-size: var(--prize-card-amount-font-size);
+  }
+
+  .kickstart-prize-card__label {
+    color: var(--prize-card-label-color);
+    font-size: var(--prize-card-small-label-font-size);
+    font-weight: var(--prize-card-label-font-weight);
+    line-height: var(--prize-card-label-line-height);
+    max-width: none;
+  }
+
+  .kickstart-prize-card--grand .kickstart-prize-card__label {
+    font-size: var(--prize-card-label-font-size);
+  }
+
+  .kickstart-prize-card__label span {
+    color: var(--color-magenta-accent);
+  }
+
+  @media (max-width: 54rem) {
+    .kickstart-rewards {
+      --rewards-media-inline-size: 100%;
+      --rewards-media-overlay: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.7) 0,
+        #ffffff 58%
+      );
+    }
+
+    .kickstart-rewards__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .kickstart-rewards__title {
+      max-width: 12ch;
+    }
+  }
+
+  @media (max-width: 38rem) {
+    .kickstart-rewards__prizes {
+      grid-template-columns: 1fr;
+    }
+
+    .kickstart-prize-card--grand {
+      padding: var(--prize-card-padding);
+    }
+
+    .kickstart-prize-card--grand .kickstart-prize-card__amount {
+      font-size: var(--prize-card-small-amount-font-size);
+    }
+
+    .kickstart-prize-card--grand .kickstart-prize-card__label {
+      font-size: var(--prize-card-small-label-font-size);
     }
   }
 }

@@ -46,3 +46,11 @@ The nutrition proof section includes a Vimeo-ready video panel. Replace the plac
   allowfullscreen
 ></iframe>
 ```
+
+The rewards section uses a variable-driven media layer and prize cards. Swap in the real left-side image with:
+
+```css
+:root {
+  --rewards-media-image: url("./assets/rewards.jpg");
+}
+```
