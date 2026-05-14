@@ -282,7 +282,7 @@
     );
     --rewards-media-position: left center;
     --rewards-media-size: cover;
-    --rewards-media-inline-size: 57%;
+    --rewards-media-inline-size: 50%;
     --rewards-media-overlay: linear-gradient(
       90deg,
       rgba(255, 255, 255, 0) 0 56%,
@@ -297,7 +297,7 @@
     --rewards-title-font-weight: var(--font-weight-bold);
     --rewards-title-line-height: 0.95;
     --rewards-title-letter-spacing: -0.02em;
-    --rewards-prize-panel-width: 35rem;
+    --rewards-grid-template-columns: repeat(2, minmax(0, 1fr));
     --rewards-prize-gap: var(--space-md);
     --prize-card-background: rgba(255, 255, 255, 0.92);
     --prize-card-border-color: color-mix(
@@ -434,6 +434,7 @@
     --reset-results-padding-block-start: var(--space-xl);
     --reset-results-padding-inline: var(--space-lg);
     --reset-results-grid-gap: var(--space-xl);
+    --reset-results-grid-template-columns: repeat(2, minmax(0, 1fr));
     --reset-results-content-width: 31rem;
     --reset-results-legal-color: var(--color-granite-900);
     --reset-results-legal-font-size: 0.75rem;
@@ -1159,10 +1160,7 @@
   .kickstart-rewards__inner {
     display: grid;
     gap: var(--space-xl);
-    grid-template-columns: minmax(13rem, 0.65fr) minmax(
-        26rem,
-        var(--rewards-prize-panel-width)
-      );
+    grid-template-columns: var(--rewards-grid-template-columns);
     width: min(100%, var(--rewards-container-width));
     margin-inline: auto;
     position: relative;
@@ -1646,10 +1644,7 @@
   .kickstart-reset-results__inner {
     display: grid;
     gap: var(--reset-results-grid-gap);
-    grid-template-columns: minmax(0, 1fr) minmax(
-        0,
-        var(--reset-results-content-width)
-      );
+    grid-template-columns: var(--reset-results-grid-template-columns);
     min-block-size: var(--reset-results-min-block-size);
     padding-block-start: var(--reset-results-padding-block-start);
     padding-inline: var(--reset-results-padding-inline);

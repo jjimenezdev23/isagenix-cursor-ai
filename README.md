@@ -52,6 +52,7 @@ The rewards section uses a variable-driven media layer and prize cards. Swap in 
 ```css
 :root {
   --rewards-media-image: url("./assets/rewards.jpg");
+  --rewards-grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 ```
 
@@ -76,6 +77,7 @@ The 30-Day Reset results section uses the supplied remote image as a CSS variabl
 ```css
 :root {
   --reset-results-background-image: url("./assets/30-day-reset.png");
+  --reset-results-grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 ```
 
