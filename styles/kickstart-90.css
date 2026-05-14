@@ -224,6 +224,48 @@
     --feature-card-title-line-height: 1;
     --feature-card-text-font-size: var(--font-size-eyebrow);
     --feature-card-text-line-height: 1.45;
+
+    /* Kickstart nutrition proof variables */
+    --nutrition-proof-background: #ffffff;
+    --nutrition-proof-color: var(--color-navy-blue);
+    --nutrition-proof-padding-block: var(--space-3xl);
+    --nutrition-proof-padding-inline: var(--space-lg);
+    --nutrition-proof-container-width: 65rem;
+    --nutrition-proof-grid-gap: var(--space-xl);
+    --nutrition-proof-content-width: 24rem;
+    --nutrition-proof-title-color: var(--color-navy-blue);
+    --nutrition-proof-title-accent-color: var(--color-magenta-accent);
+    --nutrition-proof-title-font-size: var(--font-size-h2);
+    --nutrition-proof-title-font-weight: var(--font-weight-extra-bold);
+    --nutrition-proof-title-line-height: 0.95;
+    --nutrition-proof-title-letter-spacing: -0.02em;
+    --nutrition-proof-intro-font-size: var(--font-size-h5);
+    --nutrition-proof-intro-line-height: 1.2;
+    --nutrition-proof-stat-gap: var(--space-xs);
+    --nutrition-proof-stat-background: #ffffff;
+    --nutrition-proof-stat-border-color: color-mix(
+      in srgb,
+      var(--color-blue-grey) 28%,
+      transparent
+    );
+    --nutrition-proof-stat-radius: var(--radius-sm);
+    --nutrition-proof-stat-padding: var(--space-sm);
+    --nutrition-proof-stat-value-color: var(--color-magenta-accent);
+    --nutrition-proof-stat-value-font-size: var(--font-size-h3);
+    --nutrition-proof-stat-value-font-weight: var(--font-weight-extra-bold);
+    --nutrition-proof-stat-value-line-height: 0.9;
+    --nutrition-proof-stat-label-font-size: 0.625rem;
+    --nutrition-proof-stat-label-line-height: 1.15;
+    --nutrition-proof-note-font-size: var(--font-size-body-large);
+    --nutrition-proof-note-line-height: 1.2;
+    --video-panel-background: #d9d9d9;
+    --video-panel-radius: var(--radius-md);
+    --video-panel-aspect-ratio: 16 / 9;
+    --video-panel-min-block-size: 17.5rem;
+    --video-panel-control-size: 3rem;
+    --video-panel-control-background: #111111;
+    --video-panel-control-color: #ffffff;
+    --video-panel-control-inset: var(--space-md);
   }
 }
 
@@ -657,6 +699,161 @@
 
     .kickstart-feature-card {
       min-block-size: 17rem;
+    }
+  }
+
+  .kickstart-nutrition-proof {
+    background: var(--nutrition-proof-background);
+    color: var(--nutrition-proof-color);
+    padding-block: var(--nutrition-proof-padding-block);
+    padding-inline: var(--nutrition-proof-padding-inline);
+  }
+
+  .kickstart-nutrition-proof__inner {
+    align-items: center;
+    display: grid;
+    gap: var(--nutrition-proof-grid-gap);
+    grid-template-columns: minmax(0, var(--nutrition-proof-content-width)) minmax(
+        0,
+        1fr
+      );
+    width: min(100%, var(--nutrition-proof-container-width));
+    margin-inline: auto;
+  }
+
+  .kickstart-nutrition-proof__content {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .kickstart-nutrition-proof__title {
+    color: var(--nutrition-proof-title-color);
+    display: grid;
+    font-size: var(--nutrition-proof-title-font-size);
+    font-weight: var(--nutrition-proof-title-font-weight);
+    letter-spacing: var(--nutrition-proof-title-letter-spacing);
+    line-height: var(--nutrition-proof-title-line-height);
+  }
+
+  .kickstart-nutrition-proof__title strong {
+    color: var(--nutrition-proof-title-accent-color);
+    font-weight: inherit;
+  }
+
+  .kickstart-nutrition-proof__intro {
+    color: var(--nutrition-proof-color);
+    font-size: var(--nutrition-proof-intro-font-size);
+    line-height: var(--nutrition-proof-intro-line-height);
+    max-width: none;
+  }
+
+  .kickstart-results-grid {
+    display: grid;
+    gap: var(--nutrition-proof-stat-gap);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 0;
+  }
+
+  .kickstart-result-card {
+    background: var(--nutrition-proof-stat-background);
+    border: var(--border-width) solid var(--nutrition-proof-stat-border-color);
+    border-radius: var(--nutrition-proof-stat-radius);
+    display: grid;
+    gap: var(--space-2xs);
+    justify-items: center;
+    min-block-size: 5rem;
+    padding: var(--nutrition-proof-stat-padding);
+    text-align: center;
+  }
+
+  .kickstart-result-card__value {
+    color: var(--nutrition-proof-stat-value-color);
+    font-size: var(--nutrition-proof-stat-value-font-size);
+    font-weight: var(--nutrition-proof-stat-value-font-weight);
+    line-height: var(--nutrition-proof-stat-value-line-height);
+  }
+
+  .kickstart-result-card__label {
+    color: var(--nutrition-proof-color);
+    font-size: var(--nutrition-proof-stat-label-font-size);
+    line-height: var(--nutrition-proof-stat-label-line-height);
+    margin: 0;
+  }
+
+  .kickstart-nutrition-proof__note {
+    color: var(--nutrition-proof-color);
+    font-size: var(--nutrition-proof-note-font-size);
+    line-height: var(--nutrition-proof-note-line-height);
+    max-width: none;
+  }
+
+  .kickstart-video-panel {
+    aspect-ratio: var(--video-panel-aspect-ratio);
+    background: var(--video-panel-background);
+    border-radius: var(--video-panel-radius);
+    min-block-size: var(--video-panel-min-block-size);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .kickstart-video-panel iframe,
+  .kickstart-video-panel video,
+  .kickstart-video-panel__placeholder {
+    border: 0;
+    display: block;
+    height: 100%;
+    inset: 0;
+    position: absolute;
+    width: 100%;
+  }
+
+  .kickstart-video-panel__placeholder {
+    background:
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.22),
+        rgba(255, 255, 255, 0)
+      ),
+      var(--video-panel-background);
+  }
+
+  .kickstart-video-panel__control {
+    align-items: center;
+    background: var(--video-panel-control-background);
+    border: 0;
+    border-radius: var(--radius-pill);
+    color: var(--video-panel-control-color);
+    display: inline-flex;
+    font-size: 1.125rem;
+    font-weight: var(--font-weight-black);
+    inline-size: var(--video-panel-control-size);
+    justify-content: center;
+    line-height: 1;
+    min-block-size: var(--video-panel-control-size);
+    padding: 0;
+    position: absolute;
+    inset-block-end: var(--video-panel-control-inset);
+    inset-inline-end: var(--video-panel-control-inset);
+    z-index: 1;
+  }
+
+  @media (max-width: 54rem) {
+    .kickstart-nutrition-proof__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .kickstart-nutrition-proof__content {
+      max-width: var(--nutrition-proof-content-width);
+    }
+  }
+
+  @media (max-width: 34rem) {
+    .kickstart-nutrition-proof__title {
+      font-size: clamp(2.5rem, 12vw, var(--nutrition-proof-title-font-size));
+    }
+
+    .kickstart-results-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 }

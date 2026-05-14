@@ -35,3 +35,14 @@ The second section is the Kickstart 90 overview with three feature cards. Each c
   --feature-card-image: url("./assets/nutrition.jpg");
 }
 ```
+
+The nutrition proof section includes a Vimeo-ready video panel. Replace the placeholder inside `.kickstart-video-panel` with a Vimeo iframe when the video ID is available:
+
+```html
+<iframe
+  src="https://player.vimeo.com/video/VIMEO_ID"
+  title="Kickstart 90 nutrition video"
+  allow="autoplay; fullscreen; picture-in-picture"
+  allowfullscreen
+></iframe>
+```
