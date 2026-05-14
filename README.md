@@ -15,3 +15,5 @@ Import it once at the app entry point or in the main stylesheet:
 ```css
 @import "./styles/kickstart-90.css";
 ```
+
+The `index.html` file shows the first Kickstart 90 hero section without the header. The hero uses CSS variables for the annotated Nunito Sans type, magenta label/CTA, headline sizing, and background treatment.

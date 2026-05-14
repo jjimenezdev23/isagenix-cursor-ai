@@ -36,7 +36,7 @@
 
     /* Typography foundation */
     --font-family-sans:
-      Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      "Nunito Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
       "Segoe UI", sans-serif;
     --font-family-display: var(--font-family-sans);
     --font-weight-regular: 400;
@@ -131,6 +131,41 @@
     --button-gap: var(--space-xs);
     --focus-ring-width: 0.1875rem;
     --focus-ring-offset: 0.1875rem;
+
+    /* Kickstart hero variables */
+    --hero-background-color: var(--color-cloud-white);
+    --hero-background-image:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.96) 0 36%, rgba(255, 255, 255, 0.66) 47%, rgba(255, 255, 255, 0) 68%),
+      radial-gradient(circle at 77% 23%, rgba(226, 238, 244, 0.86) 0 15rem, rgba(226, 238, 244, 0) 26rem),
+      linear-gradient(135deg, var(--color-cloud-white) 0%, var(--color-sky-blue) 52%, #ffffff 100%);
+    --hero-background-position: center;
+    --hero-background-size: cover;
+    --hero-content-width: 34rem;
+    --hero-min-block-size: 25rem;
+    --hero-padding-block: 5rem;
+    --hero-padding-inline: var(--space-lg);
+    --hero-eyebrow-color: var(--color-magenta-accent);
+    --hero-eyebrow-font-size: var(--font-size-body-large);
+    --hero-eyebrow-font-weight: var(--font-weight-bold);
+    --hero-eyebrow-line-height: 1.25;
+    --hero-eyebrow-letter-spacing: 0;
+    --hero-title-color: var(--color-granite-900);
+    --hero-title-font-size: 4.5rem;
+    --hero-title-font-weight: var(--font-weight-bold);
+    --hero-title-line-height: 1;
+    --hero-title-letter-spacing: -0.02em;
+    --hero-title-strong-font-size: var(--font-size-display-xl);
+    --hero-title-strong-font-weight: var(--font-weight-black);
+    --hero-title-strong-line-height: 0.78;
+    --hero-title-gap: var(--space-sm);
+    --hero-cta-background: var(--color-magenta-accent);
+    --hero-cta-background-hover: var(--color-navy-blue);
+    --hero-cta-color: #ffffff;
+    --hero-cta-border-radius: var(--radius-sm);
+    --hero-cta-font-size: var(--font-size-cta);
+    --hero-cta-font-weight: var(--font-weight-bold);
+    --hero-cta-padding-block: 0.875rem;
+    --hero-cta-padding-inline: 2rem;
   }
 }
 
@@ -338,6 +373,72 @@
   button[type="submit"]:hover {
     background: var(--button-background-hover);
     color: var(--button-color);
+  }
+
+  .kickstart-hero {
+    align-items: center;
+    background:
+      var(--hero-background-image),
+      var(--hero-background-color);
+    background-position: var(--hero-background-position);
+    background-size: var(--hero-background-size);
+    display: flex;
+    min-block-size: var(--hero-min-block-size);
+    padding-block: var(--hero-padding-block);
+    padding-inline: var(--hero-padding-inline);
+  }
+
+  .kickstart-hero__inner {
+    width: min(100%, var(--container-width));
+    margin-inline: auto;
+  }
+
+  .kickstart-hero__content {
+    display: grid;
+    gap: var(--hero-title-gap);
+    max-width: var(--hero-content-width);
+  }
+
+  .kickstart-hero__eyebrow {
+    color: var(--hero-eyebrow-color);
+    font-size: var(--hero-eyebrow-font-size);
+    font-weight: var(--hero-eyebrow-font-weight);
+    letter-spacing: var(--hero-eyebrow-letter-spacing);
+    line-height: var(--hero-eyebrow-line-height);
+    text-transform: uppercase;
+  }
+
+  .kickstart-hero__title {
+    color: var(--hero-title-color);
+    display: grid;
+    font-size: clamp(3rem, 6vw, var(--hero-title-font-size));
+    font-weight: var(--hero-title-font-weight);
+    letter-spacing: var(--hero-title-letter-spacing);
+    line-height: var(--hero-title-line-height);
+    max-width: 9ch;
+    text-transform: uppercase;
+  }
+
+  .kickstart-hero__title-accent {
+    font-size: clamp(4.75rem, 11vw, var(--hero-title-strong-font-size));
+    font-weight: var(--hero-title-strong-font-weight);
+    line-height: var(--hero-title-strong-line-height);
+  }
+
+  .kickstart-hero__cta {
+    --button-background: var(--hero-cta-background);
+    --button-background-hover: var(--hero-cta-background-hover);
+    --button-color: var(--hero-cta-color);
+    --button-border-radius: var(--hero-cta-border-radius);
+    --button-padding-block: var(--hero-cta-padding-block);
+    --button-padding-inline: var(--hero-cta-padding-inline);
+
+    border-radius: var(--hero-cta-border-radius);
+    font-size: var(--hero-cta-font-size);
+    font-weight: var(--hero-cta-font-weight);
+    justify-self: start;
+    margin-block-start: var(--space-xs);
+    text-transform: uppercase;
   }
 }
 
