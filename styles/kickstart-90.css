@@ -146,13 +146,12 @@
         var(--color-sky-blue) 52%,
         #ffffff 100%
       );
-    --hero-image-overlay:
-      linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0.96) 0 36%,
-        rgba(255, 255, 255, 0.66) 47%,
-        rgba(255, 255, 255, 0) 68%
-      );
+    --hero-image-overlay: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.96) 0 36%,
+      rgba(255, 255, 255, 0.66) 47%,
+      rgba(255, 255, 255, 0) 68%
+    );
     --hero-image-position: center right;
     --hero-image-size: cover;
     --hero-image-repeat: no-repeat;
