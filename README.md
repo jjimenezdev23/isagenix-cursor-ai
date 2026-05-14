@@ -17,3 +17,13 @@ Import it once at the app entry point or in the main stylesheet:
 ```
 
 The `index.html` file shows the first Kickstart 90 hero section without the header. The hero uses CSS variables for the annotated Nunito Sans type, magenta label/CTA, headline sizing, and background treatment.
+
+To add the real hero image, set the `--hero-image` variable. The image is rendered on `.kickstart-hero::after` as an absolute decorative layer, while `.kickstart-hero::before` keeps the white readability overlay separate.
+
+```css
+:root {
+  --hero-image: url("./assets/kickstart-hero.jpg");
+  --hero-image-position: center right;
+  --hero-image-size: cover;
+}
+```

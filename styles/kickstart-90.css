@@ -134,13 +134,7 @@
 
     /* Kickstart hero variables */
     --hero-background-color: var(--color-cloud-white);
-    --hero-background-image:
-      linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0.96) 0 36%,
-        rgba(255, 255, 255, 0.66) 47%,
-        rgba(255, 255, 255, 0) 68%
-      ),
+    --hero-image:
       radial-gradient(
         circle at 77% 23%,
         rgba(226, 238, 244, 0.86) 0 15rem,
@@ -152,8 +146,18 @@
         var(--color-sky-blue) 52%,
         #ffffff 100%
       );
-    --hero-background-position: center;
-    --hero-background-size: cover;
+    --hero-image-overlay:
+      linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.96) 0 36%,
+        rgba(255, 255, 255, 0.66) 47%,
+        rgba(255, 255, 255, 0) 68%
+      );
+    --hero-image-position: center right;
+    --hero-image-size: cover;
+    --hero-image-repeat: no-repeat;
+    --hero-image-inset: 0;
+    --hero-image-opacity: 1;
     --hero-content-width: 34rem;
     --hero-min-block-size: 25rem;
     --hero-padding-block: 5rem;
@@ -391,18 +395,43 @@
 
   .kickstart-hero {
     align-items: center;
-    background: var(--hero-background-image), var(--hero-background-color);
-    background-position: var(--hero-background-position);
-    background-size: var(--hero-background-size);
+    background: var(--hero-background-color);
     display: flex;
+    isolation: isolate;
     min-block-size: var(--hero-min-block-size);
+    overflow: hidden;
     padding-block: var(--hero-padding-block);
     padding-inline: var(--hero-padding-inline);
+    position: relative;
+  }
+
+  .kickstart-hero::before,
+  .kickstart-hero::after {
+    content: "";
+    inset: var(--hero-image-inset);
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .kickstart-hero::before {
+    background: var(--hero-image-overlay);
+    z-index: 1;
+  }
+
+  .kickstart-hero::after {
+    background-image: var(--hero-image);
+    background-position: var(--hero-image-position);
+    background-repeat: var(--hero-image-repeat);
+    background-size: var(--hero-image-size);
+    opacity: var(--hero-image-opacity);
+    z-index: 0;
   }
 
   .kickstart-hero__inner {
     width: min(100%, var(--container-width));
     margin-inline: auto;
+    position: relative;
+    z-index: 2;
   }
 
   .kickstart-hero__content {
