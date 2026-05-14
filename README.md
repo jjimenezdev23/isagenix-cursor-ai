@@ -87,3 +87,11 @@ The CPA/CTA strip is a standalone section below the 30-Day Reset section and is 
   --reset-cta-text-font-weight: 400;
 }
 ```
+
+The testimonial section is a three-card slider powered by `scripts/kickstart-slider.js`. The active center card scales up through `--testimonial-card-active-scale`, and the visible count can be changed with:
+
+```css
+:root {
+  --testimonial-card-visible-count: 3;
+}
+```
