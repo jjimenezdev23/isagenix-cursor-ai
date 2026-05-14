@@ -1932,7 +1932,8 @@
                 var(--testimonial-slider-gap) *
                   (var(--testimonial-card-visible-count) - 1)
               )
-          ) / var(--testimonial-card-visible-count)
+          ) /
+          var(--testimonial-card-visible-count)
       );
     overflow: hidden;
     transform: scale(var(--testimonial-card-scale));

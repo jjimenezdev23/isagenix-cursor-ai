@@ -11,7 +11,13 @@
   const nextButton = slider.querySelector("[data-slider-next]");
   const dotsContainer = slider.querySelector("[data-slider-dots]");
 
-  if (!track || cards.length === 0 || !previousButton || !nextButton || !dotsContainer) {
+  if (
+    !track ||
+    cards.length === 0 ||
+    !previousButton ||
+    !nextButton ||
+    !dotsContainer
+  ) {
     return;
   }
 
@@ -34,7 +40,9 @@
       return [activeIndex];
     }
 
-    return [-1, 0, 1].map((offset) => (activeIndex + offset + cards.length) % cards.length);
+    return [-1, 0, 1].map(
+      (offset) => (activeIndex + offset + cards.length) % cards.length,
+    );
   };
 
   const updateSlider = () => {
@@ -76,7 +84,9 @@
     dotsContainer.append(dot);
   });
 
-  previousButton.addEventListener("click", () => setActiveIndex(activeIndex - 1));
+  previousButton.addEventListener("click", () =>
+    setActiveIndex(activeIndex - 1),
+  );
   nextButton.addEventListener("click", () => setActiveIndex(activeIndex + 1));
   window.addEventListener("resize", updateSlider);
 
