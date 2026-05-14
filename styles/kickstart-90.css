@@ -323,6 +323,59 @@
     --prize-card-label-line-height: 1;
     --prize-card-small-amount-font-size: var(--font-size-h3);
     --prize-card-small-label-font-size: var(--font-size-body-large);
+
+    /* Kickstart how it works variables */
+    --how-background: #001b34;
+    --how-color: #ffffff;
+    --how-padding-block: var(--space-3xl);
+    --how-padding-inline: var(--space-lg);
+    --how-container-width: 65rem;
+    --how-title-color: #ffffff;
+    --how-title-font-size: var(--font-size-h3);
+    --how-title-font-weight: var(--font-weight-black);
+    --how-title-line-height: 1;
+    --how-title-letter-spacing: 0;
+    --how-title-margin-block-end: var(--space-xl);
+    --how-card-gap: var(--space-xl);
+    --how-card-min-block-size: 24rem;
+    --how-card-radius: var(--radius-md);
+    --how-card-padding: var(--space-lg);
+    --how-card-overlay: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 38%,
+      rgba(0, 0, 0, 0.88) 100%
+    );
+    --how-card-image: linear-gradient(
+      135deg,
+      var(--color-blue-grey),
+      var(--color-navy-blue)
+    );
+    --how-card-image-position: center;
+    --how-card-image-size: cover;
+    --how-step-number-background: var(--color-magenta-accent);
+    --how-step-number-color: #ffffff;
+    --how-step-number-font-size: var(--font-size-body-large);
+    --how-step-number-font-weight: var(--font-weight-bold);
+    --how-step-number-radius: var(--radius-sm);
+    --how-step-number-size: 2.25rem;
+    --how-step-title-color: #ffffff;
+    --how-step-title-font-size: var(--font-size-h4);
+    --how-step-title-font-weight: var(--font-weight-bold);
+    --how-step-title-line-height: 1;
+    --how-step-text-color: #ffffff;
+    --how-step-text-font-size: var(--font-size-body-small);
+    --how-step-text-line-height: 1.35;
+    --how-note-color: #ffffff;
+    --how-note-font-size: var(--font-size-body-small);
+    --how-note-line-height: 1.4;
+    --how-cta-background: var(--color-magenta-accent);
+    --how-cta-background-hover: var(--color-navy-blue);
+    --how-cta-color: #ffffff;
+    --how-cta-border-radius: var(--radius-sm);
+    --how-cta-font-size: var(--font-size-cta);
+    --how-cta-font-weight: var(--font-weight-bold);
+    --how-cta-padding-block: 0.875rem;
+    --how-cta-padding-inline: 2rem;
   }
 }
 
@@ -1095,6 +1148,185 @@
 
     .kickstart-prize-card--grand .kickstart-prize-card__label {
       font-size: var(--prize-card-small-label-font-size);
+    }
+  }
+
+  .kickstart-how {
+    background: var(--how-background);
+    color: var(--how-color);
+    padding-block: var(--how-padding-block);
+    padding-inline: var(--how-padding-inline);
+  }
+
+  .kickstart-how__inner {
+    width: min(100%, var(--how-container-width));
+    margin-inline: auto;
+  }
+
+  .kickstart-how__title {
+    color: var(--how-title-color);
+    font-size: var(--how-title-font-size);
+    font-weight: var(--how-title-font-weight);
+    letter-spacing: var(--how-title-letter-spacing);
+    line-height: var(--how-title-line-height);
+    margin-block-end: var(--how-title-margin-block-end);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .kickstart-how__steps {
+    display: grid;
+    gap: var(--how-card-gap);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .kickstart-step-card {
+    align-items: end;
+    border-radius: var(--how-card-radius);
+    color: var(--how-color);
+    display: grid;
+    isolation: isolate;
+    min-block-size: var(--how-card-min-block-size);
+    overflow: hidden;
+    padding: var(--how-card-padding);
+    position: relative;
+  }
+
+  .kickstart-step-card::before,
+  .kickstart-step-card::after {
+    content: "";
+    inset: 0;
+    position: absolute;
+  }
+
+  .kickstart-step-card::before {
+    background: var(--how-card-overlay);
+    z-index: 1;
+  }
+
+  .kickstart-step-card::after {
+    background-image: var(--how-card-image);
+    background-position: var(--how-card-image-position);
+    background-size: var(--how-card-image-size);
+    z-index: 0;
+  }
+
+  .kickstart-step-card__content {
+    display: grid;
+    gap: var(--space-sm);
+    position: relative;
+    z-index: 2;
+  }
+
+  .kickstart-step-card__heading {
+    align-items: center;
+    display: flex;
+    gap: var(--space-xs);
+    text-transform: uppercase;
+  }
+
+  .kickstart-step-card__number {
+    align-items: center;
+    background: var(--how-step-number-background);
+    border-radius: var(--how-step-number-radius);
+    color: var(--how-step-number-color);
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-size: var(--how-step-number-font-size);
+    font-weight: var(--how-step-number-font-weight);
+    inline-size: var(--how-step-number-size);
+    justify-content: center;
+    line-height: 1;
+    min-block-size: var(--how-step-number-size);
+  }
+
+  .kickstart-step-card__title {
+    color: var(--how-step-title-color);
+    font-size: var(--how-step-title-font-size);
+    font-weight: var(--how-step-title-font-weight);
+    letter-spacing: -0.01em;
+    line-height: var(--how-step-title-line-height);
+  }
+
+  .kickstart-step-card__text {
+    color: var(--how-step-text-color);
+    font-size: var(--how-step-text-font-size);
+    line-height: var(--how-step-text-line-height);
+    max-width: none;
+  }
+
+  .kickstart-step-card--commit {
+    --how-card-image: linear-gradient(
+      135deg,
+      #1d2f3b 0%,
+      #a0b8c6 50%,
+      #050f18 100%
+    );
+  }
+
+  .kickstart-step-card--show-up {
+    --how-card-image: linear-gradient(
+      135deg,
+      var(--color-sky-blue) 0%,
+      #738795 52%,
+      var(--color-granite-900) 100%
+    );
+  }
+
+  .kickstart-step-card--finish-strong {
+    --how-card-image: linear-gradient(
+      135deg,
+      #d8d2c8 0%,
+      #6f7f80 50%,
+      #071421 100%
+    );
+  }
+
+  .kickstart-how__footer {
+    align-items: center;
+    display: flex;
+    gap: var(--space-lg);
+    justify-content: space-between;
+    margin-block-start: var(--space-xl);
+  }
+
+  .kickstart-how__note {
+    color: var(--how-note-color);
+    font-size: var(--how-note-font-size);
+    line-height: var(--how-note-line-height);
+    max-width: none;
+  }
+
+  .kickstart-how__cta {
+    --button-background: var(--how-cta-background);
+    --button-background-hover: var(--how-cta-background-hover);
+    --button-color: var(--how-cta-color);
+    --button-border-radius: var(--how-cta-border-radius);
+    --button-padding-block: var(--how-cta-padding-block);
+    --button-padding-inline: var(--how-cta-padding-inline);
+
+    border-radius: var(--how-cta-border-radius);
+    flex: 0 0 auto;
+    font-size: var(--how-cta-font-size);
+    font-weight: var(--how-cta-font-weight);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 54rem) {
+    .kickstart-how__steps {
+      grid-template-columns: 1fr;
+    }
+
+    .kickstart-step-card {
+      min-block-size: 18rem;
+    }
+
+    .kickstart-how__footer {
+      align-items: start;
+      flex-direction: column;
     }
   }
 }

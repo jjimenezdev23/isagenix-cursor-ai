@@ -54,3 +54,11 @@ The rewards section uses a variable-driven media layer and prize cards. Swap in 
   --rewards-media-image: url("./assets/rewards.jpg");
 }
 ```
+
+The How It Works section uses per-step image variables. Replace the placeholder gradients with real card images as assets become available:
+
+```css
+.kickstart-step-card--commit {
+  --how-card-image: url("./assets/how-commit.jpg");
+}
+```
