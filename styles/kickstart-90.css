@@ -713,10 +713,9 @@
     align-items: center;
     display: grid;
     gap: var(--nutrition-proof-grid-gap);
-    grid-template-columns: minmax(0, var(--nutrition-proof-content-width)) minmax(
-        0,
-        1fr
-      );
+    grid-template-columns:
+      minmax(0, var(--nutrition-proof-content-width))
+      minmax(0, 1fr);
     width: min(100%, var(--nutrition-proof-container-width));
     margin-inline: auto;
   }
