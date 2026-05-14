@@ -62,3 +62,11 @@ The How It Works section uses per-step image variables. Replace the placeholder 
   --how-card-image: url("./assets/how-commit.jpg");
 }
 ```
+
+The Challenge Dates section exposes variables for the section background, title hierarchy, quarter labels, date values, and the bordered notice panel. Adjust the full section background with:
+
+```css
+:root {
+  --dates-background: #e1e7f3;
+}
+```

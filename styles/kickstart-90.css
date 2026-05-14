@@ -376,6 +376,52 @@
     --how-cta-font-weight: var(--font-weight-bold);
     --how-cta-padding-block: 0.875rem;
     --how-cta-padding-inline: 2rem;
+
+    /* Kickstart challenge dates variables */
+    --dates-background: var(--color-sky-blue);
+    --dates-color: var(--color-granite-900);
+    --dates-padding-block: var(--space-3xl);
+    --dates-padding-inline: var(--space-lg);
+    --dates-container-width: 65rem;
+    --dates-eyebrow-color: var(--color-magenta-accent);
+    --dates-eyebrow-font-size: var(--font-size-body-small);
+    --dates-eyebrow-font-weight: var(--font-weight-bold);
+    --dates-eyebrow-line-height: 1;
+    --dates-eyebrow-gap: var(--space-xs);
+    --dates-eyebrow-rule-width: 3rem;
+    --dates-eyebrow-rule-height: 0.1875rem;
+    --dates-title-color: var(--color-granite-900);
+    --dates-title-font-size: var(--font-size-h1);
+    --dates-title-font-weight: var(--font-weight-bold);
+    --dates-title-line-height: 0.95;
+    --dates-title-letter-spacing: -0.02em;
+    --dates-grid-gap: var(--space-xl);
+    --dates-grid-margin-block-start: var(--space-xl);
+    --quarter-title-color: var(--color-granite-900);
+    --quarter-title-font-size: var(--font-size-h4);
+    --quarter-title-font-weight: var(--font-weight-bold);
+    --quarter-title-line-height: 1;
+    --quarter-list-row-gap: var(--space-md);
+    --quarter-label-color: var(--color-granite-900);
+    --quarter-label-font-size: 0.875rem;
+    --quarter-label-font-weight: var(--font-weight-bold);
+    --quarter-label-line-height: 1.2;
+    --quarter-date-color: var(--color-granite-900);
+    --quarter-date-font-size: var(--font-size-body-small);
+    --quarter-date-font-weight: var(--font-weight-bold);
+    --quarter-date-line-height: 1.2;
+    --dates-notice-background: rgba(255, 255, 255, 0.32);
+    --dates-notice-border-color: var(--color-magenta-accent);
+    --dates-notice-border-radius: var(--radius-md);
+    --dates-notice-border-width: var(--border-width);
+    --dates-notice-color: var(--color-granite-900);
+    --dates-notice-font-size: 0.875rem;
+    --dates-notice-font-weight: var(--font-weight-bold);
+    --dates-notice-line-height: 1.35;
+    --dates-notice-padding-block: var(--space-md);
+    --dates-notice-padding-inline: var(--space-lg);
+    --dates-notice-icon-size: 2.5rem;
+    --dates-notice-icon-color: var(--color-magenta-accent);
   }
 }
 
@@ -1327,6 +1373,151 @@
     .kickstart-how__footer {
       align-items: start;
       flex-direction: column;
+    }
+  }
+
+  .kickstart-dates {
+    background: var(--dates-background);
+    color: var(--dates-color);
+    padding-block: var(--dates-padding-block);
+    padding-inline: var(--dates-padding-inline);
+  }
+
+  .kickstart-dates__inner {
+    width: min(100%, var(--dates-container-width));
+    margin-inline: auto;
+  }
+
+  .kickstart-dates__eyebrow {
+    align-items: center;
+    color: var(--dates-eyebrow-color);
+    display: grid;
+    font-size: var(--dates-eyebrow-font-size);
+    font-weight: var(--dates-eyebrow-font-weight);
+    gap: var(--dates-eyebrow-gap);
+    justify-items: center;
+    line-height: var(--dates-eyebrow-line-height);
+    max-width: none;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .kickstart-dates__eyebrow::after {
+    background: currentColor;
+    block-size: var(--dates-eyebrow-rule-height);
+    content: "";
+    inline-size: var(--dates-eyebrow-rule-width);
+  }
+
+  .kickstart-dates__title {
+    color: var(--dates-title-color);
+    font-size: clamp(3.5rem, 8vw, var(--dates-title-font-size));
+    font-weight: var(--dates-title-font-weight);
+    letter-spacing: var(--dates-title-letter-spacing);
+    line-height: var(--dates-title-line-height);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .kickstart-dates__grid {
+    display: grid;
+    gap: var(--dates-grid-gap);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-block-start: var(--dates-grid-margin-block-start);
+  }
+
+  .kickstart-quarter-card {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .kickstart-quarter-card__title {
+    color: var(--quarter-title-color);
+    font-size: var(--quarter-title-font-size);
+    font-weight: var(--quarter-title-font-weight);
+    line-height: var(--quarter-title-line-height);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .kickstart-quarter-card__list {
+    border-inline-start: var(--border-width) solid
+      color-mix(in srgb, var(--quarter-label-color) 18%, transparent);
+    display: grid;
+    gap: var(--quarter-list-row-gap);
+    margin: 0;
+    padding-inline-start: var(--space-md);
+  }
+
+  .kickstart-quarter-card__row {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .kickstart-quarter-card__row dt {
+    color: var(--quarter-label-color);
+    font-size: var(--quarter-label-font-size);
+    font-weight: var(--quarter-label-font-weight);
+    line-height: var(--quarter-label-line-height);
+    text-transform: uppercase;
+  }
+
+  .kickstart-quarter-card__row dd {
+    color: var(--quarter-date-color);
+    font-size: var(--quarter-date-font-size);
+    font-weight: var(--quarter-date-font-weight);
+    line-height: var(--quarter-date-line-height);
+    margin: 0;
+  }
+
+  .kickstart-dates__notice {
+    background: var(--dates-notice-background);
+    border: var(--dates-notice-border-width) solid
+      var(--dates-notice-border-color);
+    border-radius: var(--dates-notice-border-radius);
+    color: var(--dates-notice-color);
+    display: grid;
+    gap: var(--space-lg);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-block-start: var(--space-xl);
+    padding: var(--dates-notice-padding-block)
+      var(--dates-notice-padding-inline);
+  }
+
+  .kickstart-dates__notice p {
+    align-items: center;
+    color: var(--dates-notice-color);
+    display: grid;
+    font-size: var(--dates-notice-font-size);
+    font-weight: var(--dates-notice-font-weight);
+    gap: var(--space-sm);
+    grid-template-columns: auto minmax(0, 1fr);
+    line-height: var(--dates-notice-line-height);
+    max-width: none;
+  }
+
+  .kickstart-dates__notice p::before {
+    align-items: center;
+    border: var(--border-width) solid var(--dates-notice-icon-color);
+    border-radius: var(--radius-pill);
+    color: var(--dates-notice-icon-color);
+    content: "";
+    display: inline-flex;
+    inline-size: var(--dates-notice-icon-size);
+    justify-content: center;
+    min-block-size: var(--dates-notice-icon-size);
+  }
+
+  @media (max-width: 58rem) {
+    .kickstart-dates__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 38rem) {
+    .kickstart-dates__grid,
+    .kickstart-dates__notice {
+      grid-template-columns: 1fr;
     }
   }
 }
