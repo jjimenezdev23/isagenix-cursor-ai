@@ -79,7 +79,7 @@ The 30-Day Reset results section uses the supplied remote image as a CSS variabl
 }
 ```
 
-The CPA/CTA strip below the 30-Day Reset section is also tokenized. Adjust the divider and mixed white text treatment with:
+The CPA/CTA strip is a standalone section below the 30-Day Reset section and is also tokenized. Adjust the divider and mixed white text treatment with:
 
 ```css
 :root {
