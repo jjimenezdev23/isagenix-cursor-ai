@@ -27,3 +27,11 @@ To add the real hero image, set the `--hero-image` variable. The image is render
   --hero-image-size: cover;
 }
 ```
+
+The second section is the Kickstart 90 overview with three feature cards. Each card image is also variable-driven through `--feature-card-image`, so real imagery can be assigned per card class:
+
+```css
+.kickstart-feature-card--nutrition {
+  --feature-card-image: url("./assets/nutrition.jpg");
+}
+```
