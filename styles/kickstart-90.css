@@ -1584,7 +1584,8 @@
 
   .kickstart-reset-results {
     background:
-      var(--reset-results-background-image) var(--reset-results-background-position) /
+      var(--reset-results-background-image)
+        var(--reset-results-background-position) /
         var(--reset-results-background-size) no-repeat,
       var(--reset-results-background);
     color: var(--reset-results-color);
