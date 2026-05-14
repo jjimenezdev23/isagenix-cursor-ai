@@ -503,6 +503,7 @@
     --testimonials-title-line-height: 1;
     --testimonials-title-letter-spacing: -0.02em;
     --testimonial-slider-gap: var(--space-lg);
+    --testimonial-autoplay-interval: 5000;
     --testimonial-card-visible-count: 3;
     --testimonial-card-background: #ffffff;
     --testimonial-card-border-radius: 1.25rem;

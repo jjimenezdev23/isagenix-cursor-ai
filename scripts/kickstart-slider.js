@@ -21,7 +21,13 @@
     return;
   }
 
+  const reducedMotionQuery = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  );
   let activeIndex = Math.min(1, cards.length - 1);
+  let autoplayTimer;
+  let hasFocusWithin = false;
+  let isPointerOver = false;
 
   const getVisibleCount = () => {
     const styles = getComputedStyle(slider);
@@ -31,6 +37,16 @@
     );
 
     return Number.isNaN(visibleCount) ? 3 : visibleCount;
+  };
+
+  const getAutoplayInterval = () => {
+    const styles = getComputedStyle(slider);
+    const interval = Number.parseInt(
+      styles.getPropertyValue("--testimonial-autoplay-interval"),
+      10,
+    );
+
+    return Number.isNaN(interval) ? 5000 : interval;
   };
 
   const getVisibleIndices = () => {
@@ -74,21 +90,81 @@
     updateSlider();
   };
 
+  const stopAutoplay = () => {
+    window.clearInterval(autoplayTimer);
+  };
+
+  const startAutoplay = () => {
+    stopAutoplay();
+
+    if (
+      cards.length <= 1 ||
+      reducedMotionQuery.matches ||
+      document.hidden ||
+      hasFocusWithin ||
+      isPointerOver
+    ) {
+      return;
+    }
+
+    autoplayTimer = window.setInterval(() => {
+      setActiveIndex(activeIndex + 1);
+    }, getAutoplayInterval());
+  };
+
+  const restartAutoplay = () => {
+    stopAutoplay();
+    startAutoplay();
+  };
+
   cards.forEach((_, index) => {
     const dot = document.createElement("button");
 
     dot.className = "kickstart-testimonials__dot";
     dot.type = "button";
     dot.setAttribute("aria-label", `Show testimonial ${index + 1}`);
-    dot.addEventListener("click", () => setActiveIndex(index));
+    dot.addEventListener("click", () => {
+      setActiveIndex(index);
+      restartAutoplay();
+    });
     dotsContainer.append(dot);
   });
 
-  previousButton.addEventListener("click", () =>
-    setActiveIndex(activeIndex - 1),
-  );
-  nextButton.addEventListener("click", () => setActiveIndex(activeIndex + 1));
+  previousButton.addEventListener("click", () => {
+    setActiveIndex(activeIndex - 1);
+    restartAutoplay();
+  });
+  nextButton.addEventListener("click", () => {
+    setActiveIndex(activeIndex + 1);
+    restartAutoplay();
+  });
+  slider.addEventListener("mouseenter", () => {
+    isPointerOver = true;
+    stopAutoplay();
+  });
+  slider.addEventListener("mouseleave", () => {
+    isPointerOver = false;
+    startAutoplay();
+  });
+  slider.addEventListener("focusin", () => {
+    hasFocusWithin = true;
+    stopAutoplay();
+  });
+  slider.addEventListener("focusout", (event) => {
+    hasFocusWithin = slider.contains(event.relatedTarget);
+    startAutoplay();
+  });
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      stopAutoplay();
+      return;
+    }
+
+    startAutoplay();
+  });
+  reducedMotionQuery.addEventListener("change", restartAutoplay);
   window.addEventListener("resize", updateSlider);
 
   updateSlider();
+  startAutoplay();
 })();
