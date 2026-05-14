@@ -470,11 +470,16 @@
     --reset-cta-background: var(--color-navy-blue);
     --reset-cta-color: #ffffff;
     --reset-cta-accent-color: #ffffff;
+    --reset-cta-container-width: 65rem;
+    --reset-cta-column-gap: var(--space-3xl);
     --reset-cta-padding-block: var(--space-lg);
     --reset-cta-padding-inline: var(--space-lg);
     --reset-cta-text-font-size: var(--font-size-h3);
     --reset-cta-text-font-weight: var(--font-weight-regular);
     --reset-cta-text-line-height: 1;
+    --reset-cta-divider-color: rgba(255, 255, 255, 0.45);
+    --reset-cta-divider-height: 3.5rem;
+    --reset-cta-divider-width: var(--border-width);
     --reset-cta-button-background: var(--color-magenta-accent);
     --reset-cta-button-background-hover: var(--color-granite-900);
     --reset-cta-button-color: #ffffff;
@@ -1744,13 +1749,19 @@
   }
 
   .kickstart-reset-cta {
-    align-items: center;
     background: var(--reset-cta-background);
     color: var(--reset-cta-color);
-    display: grid;
-    gap: var(--space-xl);
-    grid-template-columns: minmax(0, 1fr) auto;
     padding: var(--reset-cta-padding-block) var(--reset-cta-padding-inline);
+  }
+
+  .kickstart-reset-cta__inner {
+    align-items: center;
+    color: var(--reset-cta-color);
+    display: grid;
+    gap: var(--reset-cta-column-gap);
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    width: min(100%, var(--reset-cta-container-width));
+    margin-inline: auto;
   }
 
   .kickstart-reset-cta__text {
@@ -1769,6 +1780,12 @@
 
   .kickstart-reset-cta__text span {
     display: block;
+  }
+
+  .kickstart-reset-cta__divider {
+    background: var(--reset-cta-divider-color);
+    block-size: var(--reset-cta-divider-height);
+    inline-size: var(--reset-cta-divider-width);
   }
 
   .kickstart-reset-cta__button {
@@ -1798,8 +1815,12 @@
 
   @media (max-width: 38rem) {
     .kickstart-reset-results__stats,
-    .kickstart-reset-cta {
+    .kickstart-reset-cta__inner {
       grid-template-columns: 1fr;
+    }
+
+    .kickstart-reset-cta__divider {
+      display: none;
     }
 
     .kickstart-reset-cta__button {

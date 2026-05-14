@@ -78,3 +78,12 @@ The 30-Day Reset results section uses the supplied remote image as a CSS variabl
   --reset-results-background-image: url("./assets/30-day-reset.png");
 }
 ```
+
+The CPA/CTA strip below the 30-Day Reset section is also tokenized. Adjust the divider and mixed white text treatment with:
+
+```css
+:root {
+  --reset-cta-divider-color: rgba(255, 255, 255, 0.45);
+  --reset-cta-text-font-weight: 400;
+}
+```
