@@ -70,3 +70,11 @@ The Challenge Dates section exposes variables for the section background, title 
   --dates-background: #e1e7f3;
 }
 ```
+
+The 30-Day Reset results section uses the supplied remote image as a CSS variable. Override it if the asset moves:
+
+```css
+:root {
+  --reset-results-background-image: url("./assets/30-day-reset.png");
+}
+```
