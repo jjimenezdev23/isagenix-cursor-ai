@@ -36,8 +36,8 @@
 
     /* Typography foundation */
     --font-family-sans:
-      "Nunito Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif;
+      "Nunito Sans", ui-sans-serif, system-ui, -apple-system,
+      BlinkMacSystemFont, "Segoe UI", sans-serif;
     --font-family-display: var(--font-family-sans);
     --font-weight-regular: 400;
     --font-weight-bold: 700;
@@ -135,9 +135,23 @@
     /* Kickstart hero variables */
     --hero-background-color: var(--color-cloud-white);
     --hero-background-image:
-      linear-gradient(90deg, rgba(255, 255, 255, 0.96) 0 36%, rgba(255, 255, 255, 0.66) 47%, rgba(255, 255, 255, 0) 68%),
-      radial-gradient(circle at 77% 23%, rgba(226, 238, 244, 0.86) 0 15rem, rgba(226, 238, 244, 0) 26rem),
-      linear-gradient(135deg, var(--color-cloud-white) 0%, var(--color-sky-blue) 52%, #ffffff 100%);
+      linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.96) 0 36%,
+        rgba(255, 255, 255, 0.66) 47%,
+        rgba(255, 255, 255, 0) 68%
+      ),
+      radial-gradient(
+        circle at 77% 23%,
+        rgba(226, 238, 244, 0.86) 0 15rem,
+        rgba(226, 238, 244, 0) 26rem
+      ),
+      linear-gradient(
+        135deg,
+        var(--color-cloud-white) 0%,
+        var(--color-sky-blue) 52%,
+        #ffffff 100%
+      );
     --hero-background-position: center;
     --hero-background-size: cover;
     --hero-content-width: 34rem;
@@ -377,9 +391,7 @@
 
   .kickstart-hero {
     align-items: center;
-    background:
-      var(--hero-background-image),
-      var(--hero-background-color);
+    background: var(--hero-background-image), var(--hero-background-color);
     background-position: var(--hero-background-position);
     background-size: var(--hero-background-size);
     display: flex;
