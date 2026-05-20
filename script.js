@@ -1,15 +1,15 @@
 (function () {
-  const slider = document.querySelector("[data-slider]");
+  const slider = document.querySelector("[data-testimonial-slider]");
 
   if (!slider) {
     return;
   }
 
-  const track = slider.querySelector("[data-track]");
-  const slides = Array.from(slider.querySelectorAll("[data-slide]"));
-  const prevButton = slider.querySelector("[data-prev]");
-  const nextButton = slider.querySelector("[data-next]");
-  const dotsContainer = slider.querySelector("[data-dots]");
+  const track = slider.querySelector("[data-slider-track]");
+  const slides = Array.from(slider.querySelectorAll("[data-slider-card]"));
+  const prevButton = slider.querySelector("[data-slider-prev]");
+  const nextButton = slider.querySelector("[data-slider-next]");
+  const dotsContainer = slider.querySelector("[data-slider-dots]");
   const mobileQuery = window.matchMedia("(max-width: 767px)");
   let activeIndex = 0;
   let autoplayId;
@@ -28,7 +28,7 @@
   const mobileSlides = [lastClone, ...slides, firstClone];
   const dots = Array.from({ length: getDesktopMaxIndex() + 1 }, (_, index) => {
     const dot = document.createElement("button");
-    dot.className = "testimonial-slider__dot";
+    dot.className = "kickstart-testimonials__dot";
     dot.type = "button";
     dot.setAttribute("aria-label", `Show testimonial group ${index + 1}`);
     dot.addEventListener("click", () => {

@@ -24,7 +24,7 @@ button {
   font: inherit;
 }
 
-.testimonials {
+.kickstart-testimonials {
   min-height: 100vh;
   display: grid;
   place-items: center;
@@ -34,13 +34,15 @@ button {
     var(--color-cream);
 }
 
-.testimonials__inner {
+.kickstart-testimonials__inner {
+  --card-width: 242px;
+  --card-gap: 24px;
   width: min(100%, 900px);
   margin: 0 auto;
   text-align: center;
 }
 
-.testimonials__heading {
+.kickstart-testimonials__title {
   margin: 0 0 24px;
   color: #565656;
   font-family: var(--font-heading);
@@ -49,30 +51,22 @@ button {
   line-height: 0.96;
 }
 
-.testimonials__heading em {
+.kickstart-testimonials__title em {
   display: inline;
   color: var(--color-accent);
   font-style: italic;
 }
 
-.testimonial-slider {
-  --card-width: 242px;
-  --card-gap: 24px;
+.kickstart-testimonials__viewport {
   position: relative;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 42px 42px;
-}
-
-.testimonial-slider__viewport {
   overflow: hidden;
-  width: calc((var(--card-width) * 3) + (var(--card-gap) * 2));
+  width: calc((var(--card-width) * 3) + (var(--card-gap) * 2) + 84px);
   max-width: 100%;
   margin: 0 auto;
-  padding: 0 0 1px;
+  padding: 0 42px 28px;
 }
 
-.testimonial-slider__track {
+.kickstart-testimonials__track {
   display: flex;
   gap: var(--card-gap);
   align-items: stretch;
@@ -80,7 +74,7 @@ button {
   will-change: transform;
 }
 
-.testimonial-card {
+.kickstart-testimonial-card {
   flex: 0 0 var(--card-width);
   overflow: hidden;
   border-radius: 10px;
@@ -89,11 +83,11 @@ button {
   text-align: left;
 }
 
-.testimonial-card.is-clone {
+.kickstart-testimonial-card.is-clone {
   display: none;
 }
 
-.testimonial-card__image {
+.kickstart-testimonial-card__image {
   display: block;
   width: 100%;
   height: 154px;
@@ -101,12 +95,12 @@ button {
   background: #ddd;
 }
 
-.testimonial-card__body {
+.kickstart-testimonial-card__body {
   min-height: 106px;
   padding: 12px 16px 16px;
 }
 
-.testimonial-card__name {
+.kickstart-testimonial-card__name {
   margin: 0 0 7px;
   color: var(--color-ink);
   font-family: var(--font-heading);
@@ -117,16 +111,16 @@ button {
   text-underline-offset: 2px;
 }
 
-.testimonial-card p {
+.kickstart-testimonial-card__quote {
   margin: 0;
   color: var(--color-ink);
   font-size: 0.78rem;
   line-height: 1.38;
 }
 
-.testimonial-slider__arrow {
+.kickstart-testimonials__control {
   position: absolute;
-  top: 45%;
+  top: 43%;
   z-index: 2;
   width: 38px;
   height: 38px;
@@ -142,39 +136,33 @@ button {
     transform 180ms ease;
 }
 
-.testimonial-slider__arrow:hover,
-.testimonial-slider__arrow:focus-visible {
+.kickstart-testimonials__control:hover,
+.kickstart-testimonials__control:focus-visible {
   background: #fff5fc;
   outline: none;
   transform: translateY(-50%) scale(1.06);
 }
 
-.testimonial-slider__arrow span {
-  display: block;
-  margin-top: -3px;
-  font-size: 2rem;
+.kickstart-testimonials__control i {
+  font-size: 0.95rem;
   line-height: 1;
 }
 
-.testimonial-slider__arrow--prev {
+.kickstart-testimonials__control--prev {
   left: 0;
 }
 
-.testimonial-slider__arrow--next {
+.kickstart-testimonials__control--next {
   right: 0;
 }
 
-.testimonial-slider__dots {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
+.kickstart-testimonials__dots {
   display: flex;
   justify-content: center;
   gap: 20px;
 }
 
-.testimonial-slider__dot {
+.kickstart-testimonials__dot {
   width: 13px;
   height: 13px;
   padding: 0;
@@ -187,16 +175,16 @@ button {
     transform 180ms ease;
 }
 
-.testimonial-slider__dot[aria-current="true"] {
+.kickstart-testimonials__dot[aria-current="true"] {
   background: var(--color-accent);
 }
 
-.testimonial-slider__dot:focus-visible {
+.kickstart-testimonials__dot:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
 }
 
-.testimonials__disclaimer {
+.kickstart-testimonials__disclaimer {
   width: min(100%, 560px);
   margin: 14px auto 0;
   color: #2e2e2e;
@@ -209,50 +197,45 @@ button {
     overflow-x: hidden;
   }
 
-  .testimonials {
+  .kickstart-testimonials {
     display: block;
     min-height: 100svh;
     overflow: hidden;
     padding: 20px 0 16px;
   }
 
-  .testimonials__inner {
+  .kickstart-testimonials__inner {
+    --card-width: min(73vw, 280px);
+    --card-gap: 16px;
     width: 100%;
     min-width: 0;
   }
 
-  .testimonials__heading {
+  .kickstart-testimonials__title {
     width: min(100% - 32px, 340px);
     margin: 0 auto 14px;
     font-size: 2rem;
     line-height: 0.98;
   }
 
-  .testimonials__heading em {
+  .kickstart-testimonials__title em {
     display: block;
   }
 
-  .testimonial-slider {
-    --card-width: min(73vw, 280px);
-    --card-gap: 16px;
-    padding: 0 0 22px;
-    overflow: visible;
-  }
-
-  .testimonial-slider__viewport {
+  .kickstart-testimonials__viewport {
     overflow: visible;
     width: 100%;
     max-width: none;
     padding: 8px 0 24px;
   }
 
-  .testimonial-slider__track {
+  .kickstart-testimonials__track {
     gap: var(--card-gap);
     align-items: center;
     transition: transform 520ms cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
-  .testimonial-card {
+  .kickstart-testimonial-card {
     flex-basis: var(--card-width);
     opacity: 0.46;
     transform: scale(0.82);
@@ -262,39 +245,39 @@ button {
       transform 300ms ease;
   }
 
-  .testimonial-card.is-clone {
+  .kickstart-testimonial-card.is-clone {
     display: block;
   }
 
-  .testimonial-card.is-active {
+  .kickstart-testimonial-card.is-active {
     opacity: 1;
     transform: scale(1);
   }
 
-  .testimonial-card__image {
+  .kickstart-testimonial-card__image {
     height: 130px;
   }
 
-  .testimonial-card__body {
+  .kickstart-testimonial-card__body {
     min-height: 122px;
     padding: 11px 14px 15px;
   }
 
-  .testimonial-card__name {
+  .kickstart-testimonial-card__name {
     font-size: 0.72rem;
   }
 
-  .testimonial-card p {
+  .kickstart-testimonial-card__quote {
     font-size: 0.64rem;
     line-height: 1.45;
   }
 
-  .testimonial-slider__arrow,
-  .testimonial-slider__dots {
+  .kickstart-testimonials__control,
+  .kickstart-testimonials__dots {
     display: none;
   }
 
-  .testimonials__disclaimer {
+  .kickstart-testimonials__disclaimer {
     width: min(100% - 44px, 330px);
     margin-top: -4px;
     font-size: 0.41rem;
