@@ -16,6 +16,7 @@
   let autoplayId;
   let currentTrackIndex = cloneCount;
   let pendingSnap = false;
+  let snapTimeout;
 
   if (!track || slides.length === 0) {
     return;
@@ -73,7 +74,7 @@
   }
 
   function getDesktopOffset(index) {
-    return -(index * getSlideStep());
+    return index * getSlideStep();
   }
 
   function updateDots() {
@@ -104,15 +105,24 @@
 
   function moveToTrackIndex(trackIndex, animate = true) {
     currentTrackIndex = trackIndex;
-    const offset = mobileQuery.matches
-      ? getMobileOffset(currentTrackIndex)
-      : getDesktopOffset(currentTrackIndex);
 
-    track.style.transition = animate ? "" : "none";
-    track.style.transform = `translateX(${offset}px)`;
+    if (mobileQuery.matches) {
+      const offset = getMobileOffset(currentTrackIndex);
+
+      track.scrollLeft = 0;
+      track.style.transition = animate ? "" : "none";
+      track.style.transform = `translateX(${offset}px)`;
+    } else {
+      track.style.transform = "";
+      track.scrollTo({
+        left: getDesktopOffset(currentTrackIndex),
+        behavior: animate ? "smooth" : "auto",
+      });
+    }
+
     updateActiveCards(currentTrackIndex);
 
-    if (!animate) {
+    if (!animate && mobileQuery.matches) {
       void track.offsetHeight;
       track.style.transition = "";
     }
@@ -123,12 +133,26 @@
     moveToTrackIndex(cloneCount + activeIndex, false);
   }
 
+  function scheduleSnap(animate) {
+    window.clearTimeout(snapTimeout);
+
+    if (!animate) {
+      snapToRealSlide();
+      return;
+    }
+
+    if (!mobileQuery.matches) {
+      snapTimeout = window.setTimeout(snapToRealSlide, 460);
+    }
+  }
+
   function setActiveSlide(index, animate = true) {
     if (index > slides.length - 1) {
       activeIndex = 0;
       pendingSnap = true;
       moveToTrackIndex(cloneCount + slides.length, animate);
       updateDots();
+      scheduleSnap(animate);
       return;
     }
 
@@ -137,11 +161,13 @@
       pendingSnap = true;
       moveToTrackIndex(cloneCount - 1, animate);
       updateDots();
+      scheduleSnap(animate);
       return;
     }
 
     activeIndex = index;
     pendingSnap = false;
+    window.clearTimeout(snapTimeout);
     moveToTrackIndex(cloneCount + activeIndex, animate);
     updateDots();
   }
@@ -181,8 +207,13 @@
     setActiveSlide(activeIndex + 1);
   });
 
-  track.addEventListener("transitionend", () => {
-    if (pendingSnap) {
+  track.addEventListener("transitionend", (event) => {
+    if (
+      event.target === track &&
+      event.propertyName === "transform" &&
+      mobileQuery.matches &&
+      pendingSnap
+    ) {
       snapToRealSlide();
     }
   });

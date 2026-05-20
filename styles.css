@@ -132,20 +132,15 @@ button {
 
 .kickstart-testimonials__viewport {
   align-items: center;
-  display: block;
-  inline-size: min(
-    100%,
-    calc(
-      var(--testimonial-track-width) + (var(--testimonial-control-size) * 2) +
-        var(--space-xl)
-    )
-  );
+  column-gap: var(--space-md);
+  display: grid;
+  grid-template-columns: auto minmax(0, var(--testimonial-track-width)) auto;
+  inline-size: 100%;
+  justify-content: center;
   margin-block-start: var(--space-xl);
   margin-inline: auto;
-  overflow: hidden;
+  overflow: visible;
   padding-block: var(--space-2xs);
-  padding-inline: calc(var(--testimonial-control-size) + var(--space-md));
-  position: relative;
 }
 
 .kickstart-testimonials__track {
@@ -153,11 +148,14 @@ button {
   gap: var(--testimonial-slider-gap);
   inline-size: var(--testimonial-track-width);
   margin-inline: auto;
-  overflow: visible;
+  overflow: hidden;
   padding: 0;
   scroll-behavior: smooth;
-  transition: transform 420ms var(--transition-easing);
-  will-change: transform;
+  scrollbar-width: none;
+}
+
+.kickstart-testimonials__track::-webkit-scrollbar {
+  display: none;
 }
 
 .kickstart-testimonial-card {
@@ -248,9 +246,7 @@ button {
   line-height: 1;
   min-block-size: var(--testimonial-control-size);
   padding: 0;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  position: relative;
   z-index: 2;
   transition:
     background-color var(--transition-duration) var(--transition-easing),
@@ -263,15 +259,7 @@ button {
   background: var(--testimonial-control-color);
   color: var(--testimonial-control-background);
   outline: none;
-  transform: translateY(-50%) scale(1.06);
-}
-
-.kickstart-testimonials__control--prev {
-  left: 0;
-}
-
-.kickstart-testimonials__control--next {
-  right: 0;
+  transform: scale(1.06);
 }
 
 .kickstart-testimonials__dots {
