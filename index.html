@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Testimonials Slider</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Nunito+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main>
+      <section class="testimonials" aria-labelledby="testimonials-heading">
+        <div class="testimonials__inner">
+          <h1 id="testimonials-heading" class="testimonials__heading">
+            What Others <em>Are Saying</em>
+          </h1>
+
+          <div class="testimonial-slider" data-slider>
+            <button
+              class="testimonial-slider__arrow testimonial-slider__arrow--prev"
+              type="button"
+              aria-label="Show previous testimonial"
+              data-prev
+            >
+              <span aria-hidden="true">&lsaquo;</span>
+            </button>
+
+            <div class="testimonial-slider__viewport">
+              <div class="testimonial-slider__track" data-track>
+                <article class="testimonial-card" data-slide>
+                  <img
+                    class="testimonial-card__image"
+                    src="https://images.unsplash.com/photo-1579758682665-53a1a614eea6?auto=format&fit=crop&w=620&q=80"
+                    alt="Jordyn smiling outdoors"
+                  />
+                  <div class="testimonial-card__body">
+                    <h2 class="testimonial-card__name">Jordyn P.</h2>
+                    <p>
+                      &ldquo;Obsessed! I find my shakes taste better than Starbucks.
+                      Plus, I feel good about what I&rsquo;m eating every day.&rdquo;
+                    </p>
+                  </div>
+                </article>
+
+                <article class="testimonial-card" data-slide>
+                  <img
+                    class="testimonial-card__image"
+                    src="https://images.unsplash.com/photo-1534258936925-c58bed479fcb?auto=format&fit=crop&w=620&q=80"
+                    alt="Lydia celebrating at the gym"
+                  />
+                  <div class="testimonial-card__body">
+                    <h2 class="testimonial-card__name">Lydia H.</h2>
+                    <p>
+                      &ldquo;As an avid CrossFitter I was strong but uncomfortable in
+                      my own skin. Since starting Isagenix I&rsquo;ve done 100 pounds
+                      and have kept it off for over 3 years.&rdquo;
+                    </p>
+                  </div>
+                </article>
+
+                <article class="testimonial-card" data-slide>
+                  <img
+                    class="testimonial-card__image"
+                    src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=620&q=80"
+                    alt="Bob training with battle ropes"
+                  />
+                  <div class="testimonial-card__body">
+                    <h2 class="testimonial-card__name">Bob S.</h2>
+                    <p>
+                      &ldquo;With Isagenix Protein, Clear Protein, and Creatine,
+                      decades younger is the age I&rsquo;m often mistaken for. It has
+                      changed the arc of my life at the age of sixty.&rdquo;
+                    </p>
+                  </div>
+                </article>
+
+                <article class="testimonial-card" data-slide>
+                  <img
+                    class="testimonial-card__image"
+                    src="https://images.unsplash.com/photo-1548690312-e3b507d8c110?auto=format&fit=crop&w=620&q=80"
+                    alt="Ethan smiling after a workout"
+                  />
+                  <div class="testimonial-card__body">
+                    <h2 class="testimonial-card__name">Ethan G.</h2>
+                    <p>
+                      &ldquo;I wanted more energy and more confidence in showing up
+                      for myself every day. This routine is simple, effective,
+                      and easy to love.&rdquo;
+                    </p>
+                  </div>
+                </article>
+
+                <article class="testimonial-card" data-slide>
+                  <img
+                    class="testimonial-card__image"
+                    src="https://images.unsplash.com/photo-1584466977773-e625c37cdd50?auto=format&fit=crop&w=620&q=80"
+                    alt="Maya lifting weights"
+                  />
+                  <div class="testimonial-card__body">
+                    <h2 class="testimonial-card__name">Maya R.</h2>
+                    <p>
+                      &ldquo;The biggest shift was consistency. I finally had a plan
+                      that fit busy days and still helped me feel fueled.&rdquo;
+                    </p>
+                  </div>
+                </article>
+
+                <article class="testimonial-card" data-slide>
+                  <img
+                    class="testimonial-card__image"
+                    src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=620&q=80"
+                    alt="Noah exercising in a gym"
+                  />
+                  <div class="testimonial-card__body">
+                    <h2 class="testimonial-card__name">Noah T.</h2>
+                    <p>
+                      &ldquo;I stopped guessing and started following habits I could
+                      repeat. My workouts, meals, and recovery all feel better.&rdquo;
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <button
+              class="testimonial-slider__arrow testimonial-slider__arrow--next"
+              type="button"
+              aria-label="Show next testimonial"
+              data-next
+            >
+              <span aria-hidden="true">&rsaquo;</span>
+            </button>
+
+            <div class="testimonial-slider__dots" aria-label="Choose testimonial" data-dots></div>
+          </div>
+
+          <p class="testimonials__disclaimer">
+            Results not typical and will vary with individual effort, body
+            composition, eating patterns, time, exercise, and other factors, such
+            as specific product used. Participants in studies using the Isagenix
+            products lost an average 9 pounds in 30 days; 24 pounds in 12 weeks;
+            and 30 pounds in 16 weeks. See isaproduct.com for more information.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
