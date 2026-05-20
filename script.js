@@ -10,23 +10,33 @@
   const prevButton = slider.querySelector("[data-slider-prev]");
   const nextButton = slider.querySelector("[data-slider-next]");
   const dotsContainer = slider.querySelector("[data-slider-dots]");
-  const mobileQuery = window.matchMedia("(max-width: 42rem)");
+  const mobileQuery = window.matchMedia("(max-width: 767px)");
+  const cloneCount = Math.min(3, slides.length);
   let activeIndex = 0;
   let autoplayId;
-  let isJumping = false;
+  let currentTrackIndex = cloneCount;
+  let pendingSnap = false;
 
-  const firstClone = slides[0].cloneNode(true);
-  const lastClone = slides[slides.length - 1].cloneNode(true);
+  if (!track || slides.length === 0) {
+    return;
+  }
 
-  firstClone.classList.add("is-clone");
-  firstClone.setAttribute("aria-hidden", "true");
-  lastClone.classList.add("is-clone");
-  lastClone.setAttribute("aria-hidden", "true");
-  track.prepend(lastClone);
-  track.append(firstClone);
+  function createClone(slide) {
+    const clone = slide.cloneNode(true);
 
-  const mobileSlides = [lastClone, ...slides, firstClone];
-  const dots = Array.from({ length: getDesktopMaxIndex() + 1 }, (_, index) => {
+    clone.classList.add("is-clone");
+    clone.setAttribute("aria-hidden", "true");
+    return clone;
+  }
+
+  const beforeClones = slides.slice(-cloneCount).map(createClone);
+  const afterClones = slides.slice(0, cloneCount).map(createClone);
+
+  track.prepend(...beforeClones);
+  track.append(...afterClones);
+
+  const trackSlides = [...beforeClones, ...slides, ...afterClones];
+  const dots = slides.map((_, index) => {
     const dot = document.createElement("button");
     dot.className = "kickstart-testimonials__dot";
     dot.type = "button";
@@ -39,23 +49,18 @@
   });
 
   function getSlideStep() {
-    if (slides.length < 2) {
-      return slides[0]?.getBoundingClientRect().width || 0;
+    if (trackSlides.length < 2) {
+      return trackSlides[0]?.getBoundingClientRect().width || 0;
     }
 
-    return slides[1].offsetLeft - slides[0].offsetLeft;
-  }
-
-  function getDesktopMaxIndex() {
-    return Math.max(slides.length - 3, 0);
-  }
-
-  function getClampedIndex(index) {
-    return Math.min(Math.max(index, 0), getDesktopMaxIndex());
+    return (
+      trackSlides[cloneCount + 1].offsetLeft -
+      trackSlides[cloneCount].offsetLeft
+    );
   }
 
   function getMobileOffset(trackIndex) {
-    const targetSlide = mobileSlides[trackIndex];
+    const targetSlide = trackSlides[trackIndex];
     const slideWidth = targetSlide.offsetWidth;
     const viewportWidth = Math.min(
       window.innerWidth,
@@ -81,26 +86,31 @@
   }
 
   function updateActiveCards(trackIndex) {
-    mobileSlides.forEach((slide, index) => {
+    trackSlides.forEach((slide, index) => {
       slide.classList.toggle("is-active", index === trackIndex);
       slide.classList.remove("is-visible");
     });
 
     slides.forEach((slide, index) => {
+      const visibleOffset =
+        (index - activeIndex + slides.length) % slides.length;
       const isVisible = mobileQuery.matches
         ? index === activeIndex
-        : index >= activeIndex && index < activeIndex + 3;
+        : visibleOffset >= 0 && visibleOffset < cloneCount;
 
       slide.classList.toggle("is-visible", isVisible);
     });
   }
 
-  function moveToMobileTrackIndex(trackIndex, animate = true) {
-    const offset = getMobileOffset(trackIndex);
+  function moveToTrackIndex(trackIndex, animate = true) {
+    currentTrackIndex = trackIndex;
+    const offset = mobileQuery.matches
+      ? getMobileOffset(currentTrackIndex)
+      : getDesktopOffset(currentTrackIndex);
 
     track.style.transition = animate ? "" : "none";
     track.style.transform = `translateX(${offset}px)`;
-    updateActiveCards(trackIndex);
+    updateActiveCards(currentTrackIndex);
 
     if (!animate) {
       void track.offsetHeight;
@@ -108,35 +118,31 @@
     }
   }
 
-  function resetMobilePosition() {
-    isJumping = true;
-    moveToMobileTrackIndex(activeIndex + 1, false);
-    isJumping = false;
+  function snapToRealSlide() {
+    pendingSnap = false;
+    moveToTrackIndex(cloneCount + activeIndex, false);
   }
 
   function setActiveSlide(index, animate = true) {
-    if (mobileQuery.matches) {
-      if (index > slides.length - 1) {
-        activeIndex = 0;
-        moveToMobileTrackIndex(slides.length + 1, animate);
-        return;
-      }
-
-      if (index < 0) {
-        activeIndex = slides.length - 1;
-        moveToMobileTrackIndex(0, animate);
-        return;
-      }
-
-      activeIndex = index;
-      moveToMobileTrackIndex(activeIndex + 1, animate);
+    if (index > slides.length - 1) {
+      activeIndex = 0;
+      pendingSnap = true;
+      moveToTrackIndex(cloneCount + slides.length, animate);
+      updateDots();
       return;
     }
 
-    activeIndex = getClampedIndex(index);
-    track.style.transition = "";
-    track.style.transform = `translateX(${getDesktopOffset(activeIndex)}px)`;
-    updateActiveCards(activeIndex + 1);
+    if (index < 0) {
+      activeIndex = slides.length - 1;
+      pendingSnap = true;
+      moveToTrackIndex(cloneCount - 1, animate);
+      updateDots();
+      return;
+    }
+
+    activeIndex = index;
+    pendingSnap = false;
+    moveToTrackIndex(cloneCount + activeIndex, animate);
     updateDots();
   }
 
@@ -176,11 +182,9 @@
   });
 
   track.addEventListener("transitionend", () => {
-    if (!mobileQuery.matches || isJumping) {
-      return;
+    if (pendingSnap) {
+      snapToRealSlide();
     }
-
-    resetMobilePosition();
   });
 
   slider.addEventListener("mouseenter", stopAutoplay);
@@ -189,13 +193,13 @@
   slider.addEventListener("focusout", startAutoplay);
 
   window.addEventListener("resize", () => {
-    setActiveSlide(activeIndex);
+    setActiveSlide(activeIndex, false);
     startAutoplay();
   });
 
   if (typeof mobileQuery.addEventListener === "function") {
     mobileQuery.addEventListener("change", () => {
-      setActiveSlide(activeIndex);
+      setActiveSlide(activeIndex, false);
       startAutoplay();
     });
   }
