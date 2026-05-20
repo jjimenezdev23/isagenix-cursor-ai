@@ -10,7 +10,7 @@
   const prevButton = slider.querySelector("[data-slider-prev]");
   const nextButton = slider.querySelector("[data-slider-next]");
   const dotsContainer = slider.querySelector("[data-slider-dots]");
-  const mobileQuery = window.matchMedia("(max-width: 767px)");
+  const mobileQuery = window.matchMedia("(max-width: 42rem)");
   let activeIndex = 0;
   let autoplayId;
   let isJumping = false;
@@ -73,13 +73,25 @@
 
   function updateDots() {
     dots.forEach((dot, index) => {
-      dot.setAttribute("aria-current", index === activeIndex ? "true" : "false");
+      const isActive = index === activeIndex;
+
+      dot.classList.toggle("is-active", isActive);
+      dot.setAttribute("aria-current", isActive ? "true" : "false");
     });
   }
 
   function updateActiveCards(trackIndex) {
     mobileSlides.forEach((slide, index) => {
       slide.classList.toggle("is-active", index === trackIndex);
+      slide.classList.remove("is-visible");
+    });
+
+    slides.forEach((slide, index) => {
+      const isVisible = mobileQuery.matches
+        ? index === activeIndex
+        : index >= activeIndex && index < activeIndex + 3;
+
+      slide.classList.toggle("is-visible", isVisible);
     });
   }
 
@@ -135,9 +147,17 @@
       return;
     }
 
+    const autoplayInterval =
+      Number.parseInt(
+        getComputedStyle(slider)
+          .getPropertyValue("--testimonial-autoplay-interval")
+          .trim(),
+        10,
+      ) || 3000;
+
     autoplayId = window.setInterval(() => {
       setActiveSlide(activeIndex + 1);
-    }, 3000);
+    }, autoplayInterval);
   }
 
   function stopAutoplay() {
