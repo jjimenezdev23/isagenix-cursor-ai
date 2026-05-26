@@ -45,8 +45,9 @@
   --ks-color-focus-ring: var(--ks-color-magenta-accent);
 
   /* Typography */
-  --ks-font-family-sans: "Nunito Sans", ui-sans-serif, system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ks-font-family-sans:
+    "Nunito Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
   --ks-font-family-serif: Georgia, "Times New Roman", serif;
   --ks-font-family-display: var(--ks-font-family-sans);
   --ks-font-weight-regular: 400;
@@ -380,7 +381,8 @@
   text-underline-offset: 0.18em;
   transition:
     color var(--ks-transition-duration) var(--ks-transition-easing),
-    text-decoration-color var(--ks-transition-duration) var(--ks-transition-easing);
+    text-decoration-color var(--ks-transition-duration)
+      var(--ks-transition-easing);
 }
 
 .optly-kickstart a:hover {
@@ -421,7 +423,8 @@
   padding: var(--ks-card-padding);
 }
 
-.optly-kickstart :where(button[type="button"], button[type="submit"], .kickstart-btn, .cta) {
+.optly-kickstart
+  :where(button[type="button"], button[type="submit"], .kickstart-btn, .cta) {
   align-items: center;
   background: var(--ks-button-background);
   border: var(--ks-border-width) solid var(--ks-button-border-color);
@@ -442,7 +445,13 @@
     color var(--ks-transition-duration) var(--ks-transition-easing);
 }
 
-.optly-kickstart :where(button[type="button"], button[type="submit"], .kickstart-btn, .cta):hover {
+.optly-kickstart
+  :where(
+    button[type="button"],
+    button[type="submit"],
+    .kickstart-btn,
+    .cta
+  ):hover {
   background: var(--ks-button-background-hover);
   color: var(--ks-button-color);
 }
@@ -673,7 +682,9 @@
   align-items: center;
   display: grid;
   gap: var(--ks-nutrition-proof-grid-gap);
-  grid-template-columns: minmax(0, var(--ks-nutrition-proof-content-width)) minmax(0, 1fr);
+  grid-template-columns:
+    minmax(0, var(--ks-nutrition-proof-content-width))
+    minmax(0, 1fr);
 }
 
 .optly-kickstart .kickstart-nutrition-proof__title {
@@ -707,7 +718,8 @@
 
 .optly-kickstart .kickstart-result-card {
   background: var(--ks-color-white);
-  border: var(--ks-border-width) solid var(--ks-nutrition-proof-stat-border-color);
+  border: var(--ks-border-width) solid
+    var(--ks-nutrition-proof-stat-border-color);
   border-radius: var(--ks-radius-sm);
   display: grid;
   gap: var(--ks-space-2xs);
@@ -740,7 +752,9 @@
   position: relative;
 }
 
-.optly-kickstart .kickstart-video-panel :where(iframe, video, .kickstart-video-panel__placeholder) {
+.optly-kickstart
+  .kickstart-video-panel
+  :where(iframe, video, .kickstart-video-panel__placeholder) {
   border: 0;
   display: block;
   height: 100%;
@@ -1057,14 +1071,17 @@
 }
 
 .optly-kickstart .kickstart-quarter-card__list {
-  border-inline-start: var(--ks-border-width) solid var(--ks-quarter-border-color);
+  border-inline-start: var(--ks-border-width) solid
+    var(--ks-quarter-border-color);
   display: grid;
   gap: var(--ks-space-md);
   margin: 0;
   padding-inline-start: var(--ks-space-md);
 }
 
-.optly-kickstart .kickstart-quarter-card:first-child .kickstart-quarter-card__list {
+.optly-kickstart
+  .kickstart-quarter-card:first-child
+  .kickstart-quarter-card__list {
   border: 0;
   padding: 0;
 }
@@ -1262,7 +1279,8 @@
 .optly-kickstart .kickstart-reset-results__callout {
   align-items: center;
   background: transparent;
-  border: var(--ks-border-width) solid var(--ks-reset-results-callout-border-color);
+  border: var(--ks-border-width) solid
+    var(--ks-reset-results-callout-border-color);
   border-radius: var(--ks-radius-md);
   display: grid;
   gap: var(--ks-space-md);
@@ -1617,14 +1635,19 @@
   }
 
   .optly-kickstart .kickstart-quarter-card__list,
-  .optly-kickstart .kickstart-quarter-card:first-child .kickstart-quarter-card__list {
-    border-block-end: var(--ks-border-width) solid var(--ks-quarter-border-color);
+  .optly-kickstart
+    .kickstart-quarter-card:first-child
+    .kickstart-quarter-card__list {
+    border-block-end: var(--ks-border-width) solid
+      var(--ks-quarter-border-color);
     border-inline-start: 0;
     padding-block-end: var(--ks-space-md);
     padding-inline-start: 0;
   }
 
-  .optly-kickstart .kickstart-quarter-card:last-child .kickstart-quarter-card__list {
+  .optly-kickstart
+    .kickstart-quarter-card:last-child
+    .kickstart-quarter-card__list {
     border: 0;
     padding: 0;
   }
@@ -1724,7 +1747,10 @@
   }
 
   .optly-kickstart .kickstart-feature-card::after {
-    background-image: var(--ks-feature-card-mobile-image, var(--ks-feature-card-image));
+    background-image: var(
+      --ks-feature-card-mobile-image,
+      var(--ks-feature-card-image)
+    );
     background-position: top;
     background-size: cover;
   }
