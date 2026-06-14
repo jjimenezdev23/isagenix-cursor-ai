@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Testimonials Slider</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Nunito+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main>
+      <section
+        class="kickstart-testimonials"
+        aria-labelledby="kickstart-testimonials-title"
+      >
+        <div class="kickstart-testimonials__inner" data-testimonial-slider>
+          <div class="kickstart-testimonials__header">
+            <h2
+              class="kickstart-testimonials__title"
+              id="kickstart-testimonials-title"
+            >
+              What Others <em>Are Saying</em>
+            </h2>
+          </div>
+
+          <div class="kickstart-testimonials__viewport">
+            <button
+              class="kickstart-testimonials__control kickstart-testimonials__control--prev"
+              type="button"
+              aria-label="Show previous testimonial"
+              data-slider-prev
+            >
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <div class="kickstart-testimonials__track" data-slider-track>
+              <article class="kickstart-testimonial-card" data-slider-card>
+                <img
+                  class="kickstart-testimonial-card__image"
+                  src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=600&q=80"
+                  alt="Jordan smiling after completing a workout"
+                />
+                <div class="kickstart-testimonial-card__body">
+                  <h3 class="kickstart-testimonial-card__name">Jordyn P.</h3>
+                  <p class="kickstart-testimonial-card__quote">
+                    "Obsessed. It's my stress less option that tastes amazing.
+                    Plus, I feel good knowing it's made with clean, high-quality
+                    ingredients I actually trust."
+                  </p>
+                </div>
+              </article>
+
+              <article class="kickstart-testimonial-card" data-slider-card>
+                <img
+                  class="kickstart-testimonial-card__image"
+                  src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=600&q=80"
+                  alt="Lydia celebrating strength progress in a gym"
+                />
+                <div class="kickstart-testimonial-card__body">
+                  <h3 class="kickstart-testimonial-card__name">Lydia H.</h3>
+                  <p class="kickstart-testimonial-card__quote">
+                    "As an avid CrossFitter I was strong but uncomfortable in my
+                    own skin. Since starting Isagenix I'm down 80 pounds and
+                    have kept it off for over 8 years."
+                  </p>
+                </div>
+              </article>
+
+              <article class="kickstart-testimonial-card" data-slider-card>
+                <img
+                  class="kickstart-testimonial-card__image"
+                  src="https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?auto=format&fit=crop&w=600&q=80"
+                  alt="Bob training with gym equipment"
+                />
+                <div class="kickstart-testimonial-card__body">
+                  <h3 class="kickstart-testimonial-card__name">Bob S.</h3>
+                  <p class="kickstart-testimonial-card__quote">
+                    "With Isagenix Protein, Cleanse, and Creatine, I've built
+                    nearly 40 lbs of lean muscle. At 51, I'm stronger and in the
+                    best shape of my life."
+                  </p>
+                </div>
+              </article>
+
+              <article class="kickstart-testimonial-card" data-slider-card>
+                <img
+                  class="kickstart-testimonial-card__image"
+                  src="https://images.unsplash.com/photo-1546483875-ad9014c88eba?auto=format&fit=crop&w=600&q=80"
+                  alt="Maya smiling after an outdoor training session"
+                />
+                <div class="kickstart-testimonial-card__body">
+                  <h3 class="kickstart-testimonial-card__name">Maya R.</h3>
+                  <p class="kickstart-testimonial-card__quote">
+                    "The structure helped me stay consistent. I had a plan, a
+                    community, and the confidence to keep choosing progress
+                    every day."
+                  </p>
+                </div>
+              </article>
+
+              <article class="kickstart-testimonial-card" data-slider-card>
+                <img
+                  class="kickstart-testimonial-card__image"
+                  src="https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&w=600&q=80"
+                  alt="Chris preparing for a workout"
+                />
+                <div class="kickstart-testimonial-card__body">
+                  <h3 class="kickstart-testimonial-card__name">Chris T.</h3>
+                  <p class="kickstart-testimonial-card__quote">
+                    "I stopped guessing and started following the process. The
+                    daily momentum made the biggest difference for me."
+                  </p>
+                </div>
+              </article>
+            </div>
+
+            <button
+              class="kickstart-testimonials__control kickstart-testimonials__control--next"
+              type="button"
+              aria-label="Show next testimonial"
+              data-slider-next
+            >
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <div
+            class="kickstart-testimonials__dots"
+            aria-label="Choose testimonial slide"
+            data-slider-dots
+          ></div>
+
+          <p class="kickstart-testimonials__disclaimer">
+            Disclaimer: Results may vary. Testimonials reflect individual
+            experiences and are not typical. This statement has not been
+            evaluated by the Food and Drug Administration. This product is not
+            intended to diagnose, treat, cure, or prevent any disease.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
