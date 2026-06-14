@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Local Cafe Manager</title>
+    <link rel="stylesheet" href="./src/styles.css">
+  </head>
+  <body>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Local cafe app</p>
+        <h1>Coffee capital, costing, POS, and inventory in one place</h1>
+        <p>
+          Track the Coffee Capital System from your spreadsheet: unit costs,
+          hot and iced recipe usage, capital per cup, point-of-sale transactions,
+          and inventory movement. Data stays in this browser unless you export
+          or import it.
+        </p>
+      </div>
+      <nav aria-label="Page sections">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#capital">Capital</a>
+        <a href="#ingredients">Ingredients</a>
+        <a href="#recipes">Costing</a>
+        <a href="#pos">POS</a>
+        <a href="#sales">Sales</a>
+      </nav>
+    </header>
+
+    <main>
+      <aside id="app-message" class="message" hidden></aside>
+
+      <section id="dashboard" class="panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Overview</p>
+            <h2>Daily cafe snapshot</h2>
+          </div>
+          <p id="inventory-value-note" class="muted"></p>
+        </div>
+        <div id="dashboard-cards" class="metric-grid"></div>
+        <div class="split">
+          <article>
+            <h3>Low stock alerts</h3>
+            <ul id="low-stock-list" class="alert-list"></ul>
+          </article>
+          <article>
+            <h3>Backup and restore</h3>
+            <p class="muted">
+              Use export before changing browsers, clearing browser data, or
+              moving this app to another computer.
+            </p>
+            <div class="button-row">
+              <button type="button" data-action="export-data">Export JSON</button>
+              <button type="button" class="ghost danger" data-action="reset-data">Reset spreadsheet data</button>
+            </div>
+            <label for="import-payload">Import JSON</label>
+            <textarea id="import-payload" rows="4" placeholder="Paste exported JSON here"></textarea>
+            <button type="button" data-action="import-data">Import data</button>
+          </article>
+        </div>
+      </section>
+
+      <section id="capital" class="panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Capital</p>
+            <h2>Startup funds and expenses</h2>
+          </div>
+          <p class="muted">Use capital records for owner investment, loans, grants, and expenses.</p>
+        </div>
+        <form id="capital-form" class="form-grid">
+          <label>
+            Type
+            <select name="type" required>
+              <option value="capital">Capital in</option>
+              <option value="expense">Expense</option>
+            </select>
+          </label>
+          <label>
+            Label
+            <input name="label" type="text" placeholder="Rent deposit, espresso machine, owner cash" required>
+          </label>
+          <label>
+            Amount
+            <input name="amount" type="number" min="0" step="0.01" required>
+          </label>
+          <label>
+            Date
+            <input id="capital-date" name="date" type="date" required>
+          </label>
+          <label class="wide">
+            Notes
+            <input name="notes" type="text" placeholder="Optional note">
+          </label>
+          <button type="submit">Save record</button>
+        </form>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Record</th>
+                <th class="number">Amount</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="capital-list"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="ingredients" class="panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Inventory</p>
+            <h2>Ingredients and supplies</h2>
+          </div>
+          <p class="muted">Matches the Unit Costs sheet. Cost per unit is calculated from purchase cost divided by purchase quantity.</p>
+        </div>
+        <form id="ingredient-form" class="form-grid">
+          <label>
+            Ingredient
+            <input id="ingredient-name" name="name" type="text" placeholder="Milk" required>
+          </label>
+          <label>
+            Measurement unit
+            <input id="ingredient-unit" name="unit" type="text" placeholder="g, ml, pc" required>
+          </label>
+          <label>
+            Purchase qty
+            <input id="ingredient-purchase-qty" name="purchaseQuantity" type="number" min="0" step="0.01" required>
+          </label>
+          <label>
+            Purchase cost
+            <input id="ingredient-purchase-cost" name="purchaseCost" type="number" min="0" step="0.01" required>
+          </label>
+          <label>
+            Stock quantity
+            <input id="ingredient-stock" name="stockQuantity" type="number" min="0" step="0.01" required>
+          </label>
+          <label>
+            Reorder level
+            <input id="ingredient-reorder" name="reorderLevel" type="number" min="0" step="0.01" value="0">
+          </label>
+          <label class="wide">
+            Notes
+            <input id="ingredient-notes" name="notes" type="text" placeholder="Purchase notes or assumptions">
+          </label>
+          <div class="button-row">
+            <button id="ingredient-submit" type="submit">Add ingredient</button>
+            <button id="cancel-ingredient-edit" type="button" class="ghost">Cancel edit</button>
+          </div>
+        </form>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Ingredient</th>
+                <th>Unit</th>
+                <th class="number">Purchase qty</th>
+                <th class="number">Purchase cost</th>
+                <th class="number">Cost/unit</th>
+                <th class="number">Stock</th>
+                <th class="number">Reorder</th>
+                <th class="number">Value</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="ingredient-list"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="recipes" class="panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Costing</p>
+            <h2>Recipes and menu prices</h2>
+          </div>
+          <p class="muted">Matches the Recipe Usage and Recipe Summary sheets for hot and iced drinks.</p>
+        </div>
+        <div class="split">
+          <article>
+            <form id="recipe-form" class="stack">
+              <label>
+                Type
+                <select id="recipe-type" name="type" required>
+                  <option>Iced</option>
+                  <option>Hot</option>
+                  <option>Custom</option>
+                </select>
+              </label>
+              <label>
+                Menu item
+                <input id="recipe-name" name="name" type="text" placeholder="Iced latte" required>
+              </label>
+              <div class="form-grid compact">
+                <label>
+                  Selling price
+                  <input id="recipe-price" name="price" type="number" min="0" step="0.01" required>
+                </label>
+              </div>
+              <div class="button-row">
+                <button id="recipe-submit" type="submit">Save menu item</button>
+                <button id="cancel-recipe-edit" type="button" class="ghost">Cancel edit</button>
+              </div>
+            </form>
+            <form id="recipe-ingredient-form" class="form-grid compact nested-form">
+              <label>
+                Ingredient
+                <select id="recipe-ingredient" name="ingredientId" required></select>
+              </label>
+              <label>
+                Quantity per item
+                <input name="quantity" type="number" min="0" step="0.01" required>
+              </label>
+              <button type="submit">Add to recipe</button>
+            </form>
+            <ul id="recipe-items" class="editable-list"></ul>
+          </article>
+          <div id="recipe-list" class="card-grid"></div>
+        </div>
+      </section>
+
+      <section id="pos" class="panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Point of sale</p>
+            <h2>Record sales and deduct inventory</h2>
+          </div>
+          <p class="muted">Completing a sale updates ingredient stock using each recipe.</p>
+        </div>
+        <div class="pos-layout">
+          <div>
+            <h3>Menu</h3>
+            <div id="pos-menu" class="pos-menu"></div>
+          </div>
+          <aside class="cart">
+            <div class="section-heading tight">
+              <h3>Cart</h3>
+              <strong id="cart-total">$0.00</strong>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th class="number">Qty</th>
+                    <th class="number">Price</th>
+                    <th class="number">Total</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="cart-lines"></tbody>
+              </table>
+            </div>
+            <label>
+              Payment method
+              <select id="payment-method">
+                <option>Cash</option>
+                <option>Card</option>
+                <option>Mobile wallet</option>
+                <option>Other</option>
+              </select>
+            </label>
+            <div class="button-row">
+              <button type="button" data-action="complete-sale">Complete sale</button>
+              <button type="button" class="ghost" data-action="clear-cart">Clear cart</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="sales" class="panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Sales</p>
+            <h2>Sales history and profit</h2>
+          </div>
+          <button type="button" class="ghost danger" data-action="clear-sales">Clear sales history</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Sold at</th>
+                <th>Payment</th>
+                <th>Items</th>
+                <th class="number">Revenue</th>
+                <th class="number">COGS</th>
+                <th class="number">Profit</th>
+              </tr>
+            </thead>
+            <tbody id="sales-list"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Local Cafe Manager stores data in browser localStorage. Export JSON regularly for backups.</p>
+    </footer>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

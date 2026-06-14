@@ -1,0 +1,18 @@
+{
+  "name": "local-cafe-manager",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A local browser app for cafe capital, recipe costing, POS sales, and inventory tracking.",
+  "scripts": {
+    "start": "python3 -m http.server 4173",
+    "test": "node --test"
+  },
+  "keywords": [
+    "cafe",
+    "inventory",
+    "pos",
+    "costing"
+  ],
+  "license": "UNLICENSED"
+}
