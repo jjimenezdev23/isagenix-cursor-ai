@@ -82,7 +82,7 @@ describe("capital summary", () => {
     assert.equal(summary.costOfGoodsSold, 55);
     assert.equal(summary.grossProfit, 95);
     assert.equal(summary.inventoryValue, 38);
-    assert.equal(summary.cashOnHand, 1045);
+    assert.equal(summary.cashOnHand, 1100);
   });
 });
 

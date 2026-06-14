@@ -106,9 +106,7 @@ export const summarizeCapital = ({
   );
   const grossProfit = roundMoney(salesRevenue - costOfGoodsSold);
   const inventoryValue = calculateInventoryValue(ingredients);
-  const cashOnHand = roundMoney(
-    capitalIn + salesRevenue - expenses - costOfGoodsSold,
-  );
+  const cashOnHand = roundMoney(capitalIn + salesRevenue - expenses);
 
   return {
     capitalIn,

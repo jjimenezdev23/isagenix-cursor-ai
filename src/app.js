@@ -77,7 +77,7 @@ const renderDashboard = () => {
       : 0;
 
   $("#dashboard-cards").innerHTML = [
-    ["Cash on hand", summary.cashOnHand, "Estimated cash after capital, sales, expenses, and COGS."],
+    ["Cash on hand", summary.cashOnHand, "Estimated cash after capital, sales, and recorded expenses."],
     ["Inventory value", summary.inventoryValue, "Current stock quantity multiplied by unit cost."],
     ["Sales revenue", summary.salesRevenue, `${salesCount} recorded sale${salesCount === 1 ? "" : "s"}.`],
     ["Gross profit", summary.grossProfit, "Sales revenue minus cost of goods sold."],

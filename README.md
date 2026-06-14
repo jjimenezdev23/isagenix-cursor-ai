@@ -54,5 +54,8 @@ npm test
 
 - This is a local-first app. It does not send data to a server.
 - Clearing browser data can remove records, so use export/import for backups.
+- Cash on hand is estimated from capital in plus sales revenue minus recorded
+  expenses.
 - Cost of goods sold includes ingredient, labor, and overhead cost from each
-  recipe. Inventory deduction only subtracts ingredient quantities.
+  recipe for profit reporting. Inventory deduction only subtracts ingredient
+  quantities.
