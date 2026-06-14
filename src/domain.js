@@ -11,7 +11,7 @@ export const toNumber = (value, fallback = 0) => {
   return Number.isFinite(number) ? number : fallback;
 };
 
-export const formatMoney = (value, currency = "USD") =>
+export const formatMoney = (value, currency = "PHP") =>
   new Intl.NumberFormat("en-US", {
     style: "currency",
     currency,
@@ -24,13 +24,43 @@ export const indexById = (items = []) =>
     return map;
   }, {});
 
+export const calculateIngredientUnitCost = (ingredient = {}) => {
+  const purchaseQuantity = Number(ingredient.purchaseQuantity);
+  const purchaseCost = Number(ingredient.purchaseCost);
+
+  if (
+    Number.isFinite(purchaseQuantity) &&
+    purchaseQuantity > 0 &&
+    Number.isFinite(purchaseCost)
+  ) {
+    return purchaseCost / purchaseQuantity;
+  }
+
+  const unitCost = Number(ingredient.unitCost);
+  return Number.isFinite(unitCost) ? unitCost : 0;
+};
+
+export const hasIngredientCostInput = (ingredient = {}) => {
+  const purchaseQuantity = Number(ingredient.purchaseQuantity);
+  const purchaseCost = Number(ingredient.purchaseCost);
+  const unitCost = Number(ingredient.unitCost);
+
+  return (
+    (Number.isFinite(purchaseQuantity) &&
+      purchaseQuantity > 0 &&
+      Number.isFinite(purchaseCost)) ||
+    Number.isFinite(unitCost)
+  );
+};
+
 export const calculateRecipeCost = (recipe, ingredients = []) => {
   const ingredientMap = indexById(ingredients);
   const ingredientLines = (recipe.items || []).map((item) => {
     const ingredient = ingredientMap[item.ingredientId];
     const quantity = toNumber(item.quantity);
-    const unitCost = ingredient ? toNumber(ingredient.unitCost) : 0;
+    const unitCost = ingredient ? calculateIngredientUnitCost(ingredient) : 0;
     const cost = roundMoney(quantity * unitCost);
+    const missingCostInput = !ingredient || !hasIngredientCostInput(ingredient);
 
     return {
       ingredientId: item.ingredientId,
@@ -40,6 +70,7 @@ export const calculateRecipeCost = (recipe, ingredients = []) => {
       unitCost,
       cost,
       missing: !ingredient,
+      missingCostInput,
     };
   });
 
@@ -53,6 +84,8 @@ export const calculateRecipeCost = (recipe, ingredients = []) => {
   const profit = roundMoney(price - totalCost);
   const marginPercent = price > 0 ? roundMoney((profit / price) * 100) : 0;
   const foodCostPercent = price > 0 ? roundMoney((ingredientCost / price) * 100) : 0;
+  const capitalPercent = price > 0 ? roundMoney((totalCost / price) * 100) : 0;
+  const missingCostInputs = ingredientLines.filter((line) => line.missingCostInput).length;
 
   return {
     ingredientLines,
@@ -64,6 +97,11 @@ export const calculateRecipeCost = (recipe, ingredients = []) => {
     profit,
     marginPercent,
     foodCostPercent,
+    capitalPerCup: totalCost,
+    grossProfitPerCup: profit,
+    capitalPercent,
+    missingCostInputs,
+    status: missingCostInputs === 0 ? "Complete" : "Needs cost input",
   };
 };
 
@@ -71,7 +109,9 @@ export const calculateInventoryValue = (ingredients = []) =>
   roundMoney(
     ingredients.reduce(
       (sum, ingredient) =>
-        sum + toNumber(ingredient.stockQuantity) * toNumber(ingredient.unitCost),
+        sum +
+          toNumber(ingredient.stockQuantity) *
+            calculateIngredientUnitCost(ingredient),
       0,
     ),
   );
@@ -218,7 +258,8 @@ export const buildSale = ({
 
     return {
       recipeId: recipe.id,
-      name: recipe.name,
+      name: recipe.type ? `${recipe.type} ${recipe.name}` : recipe.name,
+      recipeType: recipe.type || "",
       quantity,
       unitPrice: roundMoney(recipe.price),
       unitCost: costing.totalCost,

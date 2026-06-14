@@ -10,11 +10,12 @@
     <header class="hero">
       <div>
         <p class="eyebrow">Local cafe app</p>
-        <h1>Capital, costing, POS, and inventory in one place</h1>
+        <h1>Coffee capital, costing, POS, and inventory in one place</h1>
         <p>
-          Track startup capital, ingredient stock, menu item costs, point-of-sale
-          transactions, and inventory movement. Data stays in this browser unless
-          you export or import it.
+          Track the Coffee Capital System from your spreadsheet: unit costs,
+          hot and iced recipe usage, capital per cup, point-of-sale transactions,
+          and inventory movement. Data stays in this browser unless you export
+          or import it.
         </p>
       </div>
       <nav aria-label="Page sections">
@@ -52,7 +53,7 @@
             </p>
             <div class="button-row">
               <button type="button" data-action="export-data">Export JSON</button>
-              <button type="button" class="ghost danger" data-action="reset-data">Reset sample data</button>
+              <button type="button" class="ghost danger" data-action="reset-data">Reset spreadsheet data</button>
             </div>
             <label for="import-payload">Import JSON</label>
             <textarea id="import-payload" rows="4" placeholder="Paste exported JSON here"></textarea>
@@ -117,24 +118,24 @@
             <p class="eyebrow">Inventory</p>
             <h2>Ingredients and supplies</h2>
           </div>
-          <p class="muted">Unit cost should match the unit you use in recipes, such as grams, ml, each, or oz.</p>
+          <p class="muted">Matches the Unit Costs sheet. Cost per unit is calculated from purchase cost divided by purchase quantity.</p>
         </div>
         <form id="ingredient-form" class="form-grid">
           <label>
-            Ingredient name
+            Ingredient
             <input id="ingredient-name" name="name" type="text" placeholder="Milk" required>
           </label>
           <label>
-            Category
-            <input id="ingredient-category" name="category" type="text" placeholder="Dairy, packaging, pastry">
+            Measurement unit
+            <input id="ingredient-unit" name="unit" type="text" placeholder="g, ml, pc" required>
           </label>
           <label>
-            Unit
-            <input id="ingredient-unit" name="unit" type="text" placeholder="g, ml, each" required>
+            Purchase qty
+            <input id="ingredient-purchase-qty" name="purchaseQuantity" type="number" min="0" step="0.01" required>
           </label>
           <label>
-            Cost per unit
-            <input id="ingredient-unit-cost" name="unitCost" type="number" min="0" step="0.0001" required>
+            Purchase cost
+            <input id="ingredient-purchase-cost" name="purchaseCost" type="number" min="0" step="0.01" required>
           </label>
           <label>
             Stock quantity
@@ -143,6 +144,10 @@
           <label>
             Reorder level
             <input id="ingredient-reorder" name="reorderLevel" type="number" min="0" step="0.01" value="0">
+          </label>
+          <label class="wide">
+            Notes
+            <input id="ingredient-notes" name="notes" type="text" placeholder="Purchase notes or assumptions">
           </label>
           <div class="button-row">
             <button id="ingredient-submit" type="submit">Add ingredient</button>
@@ -155,7 +160,9 @@
               <tr>
                 <th>Ingredient</th>
                 <th>Unit</th>
-                <th class="number">Unit cost</th>
+                <th class="number">Purchase qty</th>
+                <th class="number">Purchase cost</th>
+                <th class="number">Cost/unit</th>
                 <th class="number">Stock</th>
                 <th class="number">Reorder</th>
                 <th class="number">Value</th>
@@ -174,11 +181,19 @@
             <p class="eyebrow">Costing</p>
             <h2>Recipes and menu prices</h2>
           </div>
-          <p class="muted">Each menu item combines ingredients, labor, overhead, and selling price.</p>
+          <p class="muted">Matches the Recipe Usage and Recipe Summary sheets for hot and iced drinks.</p>
         </div>
         <div class="split">
           <article>
             <form id="recipe-form" class="stack">
+              <label>
+                Type
+                <select id="recipe-type" name="type" required>
+                  <option>Iced</option>
+                  <option>Hot</option>
+                  <option>Custom</option>
+                </select>
+              </label>
               <label>
                 Menu item
                 <input id="recipe-name" name="name" type="text" placeholder="Iced latte" required>
@@ -187,14 +202,6 @@
                 <label>
                   Selling price
                   <input id="recipe-price" name="price" type="number" min="0" step="0.01" required>
-                </label>
-                <label>
-                  Labor cost
-                  <input id="recipe-labor" name="laborCost" type="number" min="0" step="0.01" value="0">
-                </label>
-                <label>
-                  Overhead cost
-                  <input id="recipe-overhead" name="overheadCost" type="number" min="0" step="0.01" value="0">
                 </label>
               </div>
               <div class="button-row">

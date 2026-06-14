@@ -1,11 +1,13 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
+  calculateIngredientUnitCost,
   calculateRecipeCost,
   completeSale,
   getLowStockIngredients,
   summarizeCapital,
 } from "../src/domain.js";
+import { defaultData } from "../src/storage.js";
 
 const ingredients = [
   {
@@ -58,6 +60,50 @@ describe("recipe costing", () => {
     assert.equal(costing.profit, 3.1);
     assert.equal(costing.marginPercent, 62);
     assert.equal(costing.foodCostPercent, 25);
+  });
+
+  it("derives unit cost from purchase quantity and purchase cost", () => {
+    assert.equal(
+      calculateIngredientUnitCost({
+        purchaseQuantity: 3000,
+        purchaseCost: 3200,
+      }),
+      3200 / 3000,
+    );
+  });
+
+  it("matches the spreadsheet Spanish latte recipe summary", () => {
+    const recipe = defaultData.recipes.find(
+      (item) => item.id === "recipe-iced-spanish-latte",
+    );
+    const costing = calculateRecipeCost(recipe, defaultData.ingredients);
+
+    assert.equal(costing.capitalPerCup, 45.35);
+    assert.equal(costing.grossProfitPerCup, 59.65);
+    assert.equal(costing.marginPercent, 56.81);
+    assert.equal(costing.capitalPercent, 43.19);
+    assert.equal(costing.missingCostInputs, 0);
+    assert.equal(costing.status, "Complete");
+  });
+
+  it("keeps hot and iced recipes distinct for POS", () => {
+    const hotAmericano = defaultData.recipes.find(
+      (item) => item.id === "recipe-hot-americano",
+    );
+    const icedAmericano = defaultData.recipes.find(
+      (item) => item.id === "recipe-iced-americano",
+    );
+
+    assert.equal(hotAmericano.type, "Hot");
+    assert.equal(icedAmericano.type, "Iced");
+    assert.equal(
+      hotAmericano.items.some((item) => item.ingredientId === "ing-straw"),
+      false,
+    );
+    assert.equal(
+      icedAmericano.items.some((item) => item.ingredientId === "ing-straw"),
+      true,
+    );
   });
 });
 

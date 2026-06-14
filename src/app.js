@@ -1,4 +1,5 @@
 import {
+  calculateIngredientUnitCost,
   calculateInventoryValue,
   calculateRecipeCost,
   completeSale,
@@ -43,6 +44,11 @@ const escapeHtml = (value) =>
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+
+const recipeDisplayName = (recipe) =>
+  recipe?.type ? `${recipe.type} ${recipe.name}` : recipe?.name || "Deleted item";
+
+const formatPercent = (value) => `${roundMoney(value)}%`;
 
 const getIngredient = (id) => state.data.ingredients.find((item) => item.id === id);
 
@@ -139,9 +145,10 @@ const renderCapital = () => {
 const renderIngredients = () => {
   $("#ingredient-list").innerHTML =
     state.data.ingredients.length === 0
-      ? '<tr><td colspan="8" class="empty">Add your first ingredient or supply item.</td></tr>'
+      ? '<tr><td colspan="10" class="empty">Add your first ingredient or supply item.</td></tr>'
       : state.data.ingredients
           .map((ingredient) => {
+            const unitCost = calculateIngredientUnitCost(ingredient);
             const isLow =
               toNumber(ingredient.reorderLevel) > 0 &&
               toNumber(ingredient.stockQuantity) <= toNumber(ingredient.reorderLevel);
@@ -149,13 +156,15 @@ const renderIngredients = () => {
               <tr class="${isLow ? "low-stock" : ""}">
                 <td>
                   <strong>${escapeHtml(ingredient.name)}</strong>
-                  <small>${escapeHtml(ingredient.category || "Uncategorized")}</small>
+                  ${ingredient.notes ? `<small>${escapeHtml(ingredient.notes)}</small>` : ""}
                 </td>
                 <td>${escapeHtml(ingredient.unit)}</td>
-                <td class="number">${formatMoney(ingredient.unitCost)}</td>
+                <td class="number">${toNumber(ingredient.purchaseQuantity)}</td>
+                <td class="number">${formatMoney(ingredient.purchaseCost)}</td>
+                <td class="number">${formatMoney(unitCost)}</td>
                 <td class="number">${toNumber(ingredient.stockQuantity)}</td>
                 <td class="number">${toNumber(ingredient.reorderLevel)}</td>
-                <td class="number">${formatMoney(toNumber(ingredient.stockQuantity) * toNumber(ingredient.unitCost))}</td>
+                <td class="number">${formatMoney(toNumber(ingredient.stockQuantity) * unitCost)}</td>
                 <td>${isLow ? '<span class="tag warning">Low stock</span>' : '<span class="tag positive">OK</span>'}</td>
                 <td class="actions">
                   <button class="ghost" data-action="edit-ingredient" data-id="${ingredient.id}">Edit</button>
@@ -202,15 +211,19 @@ const renderRecipes = () => {
       <article class="recipe-card">
         <div class="recipe-card__header">
           <div>
+            <span class="tag ${recipe.type === "Hot" ? "warning" : "positive"}">${escapeHtml(recipe.type || "Custom")}</span>
             <h3>${escapeHtml(recipe.name)}</h3>
-            <span class="muted">${costing.foodCostPercent}% ingredient cost</span>
+            <span class="muted">Capital % of price: ${formatPercent(costing.capitalPercent)}</span>
           </div>
           <strong>${formatMoney(recipe.price)}</strong>
         </div>
         <dl class="mini-grid">
-          <div><dt>Total cost</dt><dd>${formatMoney(costing.totalCost)}</dd></div>
-          <div><dt>Profit</dt><dd>${formatMoney(costing.profit)}</dd></div>
-          <div><dt>Margin</dt><dd>${costing.marginPercent}%</dd></div>
+          <div><dt>Capital per cup</dt><dd>${formatMoney(costing.capitalPerCup)}</dd></div>
+          <div><dt>Gross profit</dt><dd>${formatMoney(costing.grossProfitPerCup)}</dd></div>
+          <div><dt>Profit margin</dt><dd>${formatPercent(costing.marginPercent)}</dd></div>
+          <div><dt>Capital % price</dt><dd>${formatPercent(costing.capitalPercent)}</dd></div>
+          <div><dt>Missing inputs</dt><dd>${costing.missingCostInputs}</dd></div>
+          <div><dt>Status</dt><dd>${escapeHtml(costing.status)}</dd></div>
         </dl>
         <ul class="line-list">
           ${costing.ingredientLines
@@ -218,13 +231,11 @@ const renderRecipes = () => {
               (line) => `
                 <li>
                   <span>${line.quantity} ${escapeHtml(line.unit)} ${escapeHtml(line.ingredientName)}</span>
-                  <span>${formatMoney(line.cost)}</span>
+                  <span>${formatMoney(line.cost)} <small>@ ${formatMoney(line.unitCost)} / ${escapeHtml(line.unit)}</small></span>
                 </li>
               `,
             )
             .join("")}
-          <li><span>Labor</span><span>${formatMoney(costing.laborCost)}</span></li>
-          <li><span>Overhead</span><span>${formatMoney(costing.overheadCost)}</span></li>
         </ul>
         <div class="actions">
           <button class="ghost" data-action="edit-recipe" data-id="${recipe.id}">Edit</button>
@@ -255,8 +266,8 @@ const renderPos = () => {
             return `
               <article class="pos-item ${validation.length ? "disabled" : ""}">
                 <div>
-                  <strong>${escapeHtml(recipe.name)}</strong>
-                  <small>${formatMoney(recipe.price)} | cost ${formatMoney(costing.totalCost)}</small>
+                  <strong>${escapeHtml(recipeDisplayName(recipe))}</strong>
+                  <small>${formatMoney(recipe.price)} | capital ${formatMoney(costing.capitalPerCup)} | ${escapeHtml(costing.status)}</small>
                 </div>
                 <label>
                   Qty
@@ -278,7 +289,7 @@ const renderPos = () => {
             const lineTotal = roundMoney(toNumber(recipe?.price) * toNumber(item.quantity));
             return `
               <tr>
-                <td>${escapeHtml(recipe?.name || "Deleted item")}</td>
+                <td>${escapeHtml(recipeDisplayName(recipe))}</td>
                 <td class="number">${toNumber(item.quantity)}</td>
                 <td class="number">${formatMoney(recipe?.price || 0)}</td>
                 <td class="number">${formatMoney(lineTotal)}</td>
@@ -372,14 +383,18 @@ const handleCapitalSubmit = (event) => {
 const handleIngredientSubmit = (event) => {
   event.preventDefault();
   const form = new FormData(event.currentTarget);
+  const purchaseQuantity = toNumber(form.get("purchaseQuantity"));
+  const purchaseCost = toNumber(form.get("purchaseCost"));
   const ingredient = {
     id: state.editingIngredientId || createId("ingredient"),
     name: form.get("name").trim(),
-    category: form.get("category").trim(),
     unit: form.get("unit").trim(),
-    unitCost: toNumber(form.get("unitCost")),
+    purchaseQuantity,
+    purchaseCost,
+    unitCost: purchaseQuantity > 0 ? purchaseCost / purchaseQuantity : 0,
     stockQuantity: toNumber(form.get("stockQuantity")),
     reorderLevel: toNumber(form.get("reorderLevel")),
+    notes: form.get("notes").trim(),
   };
 
   if (state.editingIngredientId) {
@@ -430,10 +445,11 @@ const handleRecipeSubmit = (event) => {
   const form = new FormData(event.currentTarget);
   const recipe = {
     id: state.editingRecipeId || createId("recipe"),
+    type: form.get("type"),
     name: form.get("name").trim(),
     price: toNumber(form.get("price")),
-    laborCost: toNumber(form.get("laborCost")),
-    overheadCost: toNumber(form.get("overheadCost")),
+    laborCost: 0,
+    overheadCost: 0,
     items: state.recipeItems.map((item) => ({ ...item })),
   };
 
@@ -525,11 +541,12 @@ const handleImport = () => {
 const populateIngredientForm = (ingredient) => {
   state.editingIngredientId = ingredient.id;
   $("#ingredient-name").value = ingredient.name;
-  $("#ingredient-category").value = ingredient.category || "";
   $("#ingredient-unit").value = ingredient.unit;
-  $("#ingredient-unit-cost").value = ingredient.unitCost;
+  $("#ingredient-purchase-qty").value = ingredient.purchaseQuantity;
+  $("#ingredient-purchase-cost").value = ingredient.purchaseCost;
   $("#ingredient-stock").value = ingredient.stockQuantity;
   $("#ingredient-reorder").value = ingredient.reorderLevel;
+  $("#ingredient-notes").value = ingredient.notes || "";
   $("#ingredient-name").focus();
   renderForms();
 };
@@ -537,10 +554,9 @@ const populateIngredientForm = (ingredient) => {
 const populateRecipeForm = (recipe) => {
   state.editingRecipeId = recipe.id;
   state.recipeItems = recipe.items.map((item) => ({ ...item }));
+  $("#recipe-type").value = recipe.type || "Custom";
   $("#recipe-name").value = recipe.name;
   $("#recipe-price").value = recipe.price;
-  $("#recipe-labor").value = recipe.laborCost;
-  $("#recipe-overhead").value = recipe.overheadCost;
   $("#recipe-name").focus();
   renderRecipeItems();
   renderForms();
@@ -631,11 +647,11 @@ const handleClick = (event) => {
   }
 
   if (action === "reset-data") {
-    if (window.confirm("Reset all local cafe data to sample data? This cannot be undone.")) {
+    if (window.confirm("Reset all local cafe data to the spreadsheet starter data? This cannot be undone.")) {
       state.data = resetData();
       state.cart = [];
       state.recipeItems = [];
-      setMessage("Data reset to sample cafe data.");
+      setMessage("Data reset to the spreadsheet starter data.");
       render();
     }
   }
