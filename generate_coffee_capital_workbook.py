@@ -10,8 +10,10 @@ OUTPUT_FILE = "coffee_capital_system.xlsx"
 INGREDIENTS = [
     ("Coffee", "g", "Enter coffee bag total grams and purchase cost."),
     ("Milk", "ml", "Enter carton/bottle total ml and purchase cost."),
-    ("Cup", "pc", "Enter number of cups per pack and pack cost."),
-    ("Lid", "pc", "Enter number of lids per pack and pack cost."),
+    ("Cup", "pc", "Enter number of iced/cold cups per pack and pack cost."),
+    ("Lid", "pc", "Enter number of iced/cold lids per pack and pack cost."),
+    ("Hot Cup", "pc", "Enter number of hot cups per pack and pack cost."),
+    ("Hot Lid", "pc", "Enter number of hot lids per pack and pack cost."),
     ("Ice", "g", "Enter total grams bought/produced and cost."),
     ("Straw", "pc", "Enter number of straws per pack and pack cost."),
     ("Water", "ml", "Enter total ml and cost if you want to include water."),
@@ -36,6 +38,8 @@ RECIPE_USAGE_HEADERS = [
     "Chocolate Syrup (g)",
     "Cup (pc)",
     "Lid (pc)",
+    "Hot Cup (pc)",
+    "Hot Lid (pc)",
     "Straw (pc)",
 ]
 
@@ -148,8 +152,8 @@ RECIPES = [
             "Coffee (g)": 18,
             "Milk (ml)": 200,
             "Condensed milk (g)": 30,
-            "Cup (pc)": 1,
-            "Lid (pc)": 1,
+            "Hot Cup (pc)": 1,
+            "Hot Lid (pc)": 1,
         },
     },
     {
@@ -159,8 +163,8 @@ RECIPES = [
         "usage": {
             "Coffee (g)": 18,
             "Water (ml)": 200,
-            "Cup (pc)": 1,
-            "Lid (pc)": 1,
+            "Hot Cup (pc)": 1,
+            "Hot Lid (pc)": 1,
         },
     },
     {
@@ -170,8 +174,8 @@ RECIPES = [
         "usage": {
             "Coffee (g)": 18,
             "Milk (ml)": 200,
-            "Cup (pc)": 1,
-            "Lid (pc)": 1,
+            "Hot Cup (pc)": 1,
+            "Hot Lid (pc)": 1,
         },
     },
     {
@@ -183,8 +187,8 @@ RECIPES = [
             "Milk (ml)": 200,
             "Condensed milk (g)": 30,
             "Ube powder (g)": 8,
-            "Cup (pc)": 1,
-            "Lid (pc)": 1,
+            "Hot Cup (pc)": 1,
+            "Hot Lid (pc)": 1,
         },
     },
     {
@@ -196,8 +200,8 @@ RECIPES = [
             "Milk (ml)": 200,
             "Condensed milk (g)": 30,
             "Chocolate Syrup (g)": 35,
-            "Cup (pc)": 1,
-            "Lid (pc)": 1,
+            "Hot Cup (pc)": 1,
+            "Hot Lid (pc)": 1,
         },
     },
     {
@@ -209,8 +213,8 @@ RECIPES = [
             "Milk (ml)": 200,
             "Condensed milk (g)": 30,
             "Caramel Syrup (g)": 35,
-            "Cup (pc)": 1,
-            "Lid (pc)": 1,
+            "Hot Cup (pc)": 1,
+            "Hot Lid (pc)": 1,
         },
     },
 ]
@@ -327,6 +331,7 @@ def build_instructions(ws):
     assumptions = [
         "Selling prices are entered exactly as provided.",
         "Quantities are counted only when the ingredient appears in the provided recipe list.",
+        "Iced recipes use the Cup and Lid cost inputs; hot recipes use the separate Hot Cup and Hot Lid cost inputs.",
         "Hot coffee base data mentioned Straw, but hot recipes did not list Straw; hot recipe straw quantity is set to 0. Change Recipe Usage if you include a straw or stirrer.",
         "Water cost can be entered as 0 if you do not track it separately.",
         "All costs should be entered in the same currency as your selling prices.",
@@ -409,7 +414,10 @@ def build_recipe_usage(ws):
     last_row = len(RECIPES) + 1
     add_table(ws, "RecipeUsage", 1, last_row, len(RECIPE_USAGE_HEADERS))
     style_range(ws, 1, last_row, 1, len(RECIPE_USAGE_HEADERS))
-    set_column_widths(ws, [12, 22, 14, 12, 12, 12, 10, 20, 16, 18, 20, 10, 10, 10])
+    set_column_widths(
+        ws,
+        [12, 22, 14, 12, 12, 12, 10, 20, 16, 18, 20, 10, 10, 12, 12, 10],
+    )
     for row in range(2, last_row + 1):
         ws.cell(row=row, column=3).number_format = "#,##0.00"
         for col in range(4, len(RECIPE_USAGE_HEADERS) + 1):
