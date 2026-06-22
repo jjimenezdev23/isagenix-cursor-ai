@@ -28,166 +28,10 @@ UNITS = [
 ]
 
 
-ITEMS = [
-    ("ING-001", "Coffee", "Ingredient", "g", "", "g", "", 0, "Coffee bag total grams and cost."),
-    ("ING-002", "Milk", "Ingredient", "ml", "", "ml", "", 0, "Milk carton/bottle total ml and cost."),
-    ("ING-003", "Water", "Ingredient", "ml", "", "ml", "", 0, "Enter 0 cost if water is not tracked."),
-    ("ING-004", "Ice", "Ingredient", "g", "", "g", "", 0, "Total grams bought/produced and cost."),
-    ("ING-005", "Condensed milk", "Ingredient", "g", "", "g", "", 0, "Can/container total grams and cost."),
-    ("ING-006", "Ube powder", "Ingredient", "g", "", "g", "", 0, "Pouch/container total grams and cost."),
-    ("ING-007", "Caramel Syrup", "Ingredient", "g", "", "g", "", 0, "Bottle total grams and cost."),
-    ("ING-008", "Chocolate Syrup", "Ingredient", "g", "", "g", "", 0, "Bottle total grams and cost."),
-    ("PKG-001", "Iced Cup", "Packaging", "pc", "", "pc", "", 0, "Iced/cold cup pack count and cost."),
-    ("PKG-002", "Iced Lid", "Packaging", "pc", "", "pc", "", 0, "Iced/cold lid pack count and cost."),
-    ("PKG-003", "Hot Cup", "Packaging", "pc", "", "pc", "", 0, "Hot cup pack count and cost."),
-    ("PKG-004", "Hot Lid", "Packaging", "pc", "", "pc", "", 0, "Hot lid pack count and cost."),
-    ("PKG-005", "Straw", "Packaging", "pc", "", "pc", "", 0, "Straw pack count and cost."),
-]
-
-
-COFFEE_PRODUCTS = [
-    ("ICED-SPANISH-LATTE", "Spanish latte", "Iced Coffee", 105),
-    ("ICED-AMERICANO", "Americano", "Iced Coffee", 70),
-    ("ICED-LATTE", "Latte", "Iced Coffee", 90),
-    ("ICED-UBE-LATTE", "Ube Latte", "Iced Coffee", 110),
-    ("ICED-MOCHA-LATTE", "Mocha Latte", "Iced Coffee", 110),
-    ("ICED-CARAMEL-MACCHIATO", "Caramel Macchiato", "Iced Coffee", 110),
-    ("ICED-KAPE-SUA-DA", "Kape Sua Da", "Iced Coffee", 105),
-    ("HOT-SPANISH-LATTE", "Spanish latte", "Hot Coffee", 105),
-    ("HOT-AMERICANO", "Americano", "Hot Coffee", 70),
-    ("HOT-LATTE", "Latte", "Hot Coffee", 90),
-    ("HOT-UBE-LATTE", "Ube Latte", "Hot Coffee", 110),
-    ("HOT-MOCHA-LATTE", "Mocha Latte", "Hot Coffee", 110),
-    ("HOT-CARAMEL-MACCHIATO", "Caramel Macchiato", "Hot Coffee", 110),
-]
-
-
-ITEM_IDS = {
-    "Coffee": "ING-001",
-    "Milk": "ING-002",
-    "Water": "ING-003",
-    "Ice": "ING-004",
-    "Condensed milk": "ING-005",
-    "Ube powder": "ING-006",
-    "Caramel Syrup": "ING-007",
-    "Chocolate Syrup": "ING-008",
-    "Iced Cup": "PKG-001",
-    "Iced Lid": "PKG-002",
-    "Hot Cup": "PKG-003",
-    "Hot Lid": "PKG-004",
-    "Straw": "PKG-005",
-}
-
-
-COFFEE_RECIPES = {
-    "ICED-SPANISH-LATTE": [
-        ("Coffee", 18, "g"),
-        ("Milk", 150, "ml"),
-        ("Ice", 100, "g"),
-        ("Condensed milk", 30, "g"),
-        ("Iced Cup", 1, "pc"),
-        ("Iced Lid", 1, "pc"),
-        ("Straw", 1, "pc"),
-    ],
-    "ICED-AMERICANO": [
-        ("Coffee", 18, "g"),
-        ("Water", 150, "ml"),
-        ("Ice", 100, "g"),
-        ("Iced Cup", 1, "pc"),
-        ("Iced Lid", 1, "pc"),
-        ("Straw", 1, "pc"),
-    ],
-    "ICED-LATTE": [
-        ("Coffee", 18, "g"),
-        ("Milk", 150, "ml"),
-        ("Ice", 100, "g"),
-        ("Iced Cup", 1, "pc"),
-        ("Iced Lid", 1, "pc"),
-        ("Straw", 1, "pc"),
-    ],
-    "ICED-UBE-LATTE": [
-        ("Coffee", 18, "g"),
-        ("Milk", 150, "ml"),
-        ("Ice", 100, "g"),
-        ("Condensed milk", 30, "g"),
-        ("Ube powder", 8, "g"),
-        ("Iced Cup", 1, "pc"),
-        ("Iced Lid", 1, "pc"),
-        ("Straw", 1, "pc"),
-    ],
-    "ICED-MOCHA-LATTE": [
-        ("Coffee", 18, "g"),
-        ("Milk", 150, "ml"),
-        ("Ice", 100, "g"),
-        ("Condensed milk", 30, "g"),
-        ("Chocolate Syrup", 35, "g"),
-        ("Iced Cup", 1, "pc"),
-        ("Iced Lid", 1, "pc"),
-        ("Straw", 1, "pc"),
-    ],
-    "ICED-CARAMEL-MACCHIATO": [
-        ("Coffee", 18, "g"),
-        ("Milk", 150, "ml"),
-        ("Ice", 100, "g"),
-        ("Condensed milk", 30, "g"),
-        ("Caramel Syrup", 35, "g"),
-        ("Iced Cup", 1, "pc"),
-        ("Iced Lid", 1, "pc"),
-        ("Straw", 1, "pc"),
-    ],
-    "ICED-KAPE-SUA-DA": [
-        ("Coffee", 18, "g"),
-        ("Water", 150, "ml"),
-        ("Ice", 100, "g"),
-        ("Condensed milk", 30, "g"),
-        ("Iced Cup", 1, "pc"),
-        ("Iced Lid", 1, "pc"),
-        ("Straw", 1, "pc"),
-    ],
-    "HOT-SPANISH-LATTE": [
-        ("Coffee", 18, "g"),
-        ("Milk", 200, "ml"),
-        ("Condensed milk", 30, "g"),
-        ("Hot Cup", 1, "pc"),
-        ("Hot Lid", 1, "pc"),
-    ],
-    "HOT-AMERICANO": [
-        ("Coffee", 18, "g"),
-        ("Water", 200, "ml"),
-        ("Hot Cup", 1, "pc"),
-        ("Hot Lid", 1, "pc"),
-    ],
-    "HOT-LATTE": [
-        ("Coffee", 18, "g"),
-        ("Milk", 200, "ml"),
-        ("Hot Cup", 1, "pc"),
-        ("Hot Lid", 1, "pc"),
-    ],
-    "HOT-UBE-LATTE": [
-        ("Coffee", 18, "g"),
-        ("Milk", 200, "ml"),
-        ("Condensed milk", 30, "g"),
-        ("Ube powder", 8, "g"),
-        ("Hot Cup", 1, "pc"),
-        ("Hot Lid", 1, "pc"),
-    ],
-    "HOT-MOCHA-LATTE": [
-        ("Coffee", 18, "g"),
-        ("Milk", 200, "ml"),
-        ("Condensed milk", 30, "g"),
-        ("Chocolate Syrup", 35, "g"),
-        ("Hot Cup", 1, "pc"),
-        ("Hot Lid", 1, "pc"),
-    ],
-    "HOT-CARAMEL-MACCHIATO": [
-        ("Coffee", 18, "g"),
-        ("Milk", 200, "ml"),
-        ("Condensed milk", 30, "g"),
-        ("Caramel Syrup", 35, "g"),
-        ("Hot Cup", 1, "pc"),
-        ("Hot Lid", 1, "pc"),
-    ],
-}
+ITEMS = []
+PRODUCTS = []
+ITEM_IDS = {}
+RECIPES = {}
 
 
 thin_gray = Side(style="thin", color="D9E2F3")
@@ -294,7 +138,8 @@ def build_instructions(ws):
     notes = [
         "Item costs are entered once in Items. Any recipe using that item updates when the item purchase cost changes.",
         "Product selling prices are entered once in Products. Product Summary updates when the price changes.",
-        "Recipe units can differ from purchase units if both convert to the item's base unit. Example: buy coffee by kg, use coffee by g.",
+        "This workbook starts empty, so you can build a new list of items, products, and recipes from scratch.",
+        "Recipe units can differ from purchase units if both convert to the item's base unit. Example: buy flour by kg, use flour by g.",
         "Use the same currency everywhere.",
         "Rows are prebuilt for 200 items, 200 products, and 1000 recipe/BOM lines. Copy formulas down if you need more.",
     ]
@@ -400,9 +245,9 @@ def build_products(ws):
     style_header_row(ws, len(headers))
 
     for row_idx in range(2, MAX_PRODUCTS + 2):
-        if row_idx - 2 < len(COFFEE_PRODUCTS):
-            product_id, name, category, price = COFFEE_PRODUCTS[row_idx - 2]
-            values = [product_id, name, category, price, "Yes", "Sample coffee product; edit or replace."]
+        if row_idx - 2 < len(PRODUCTS):
+            product_id, name, category, price = PRODUCTS[row_idx - 2]
+            values = [product_id, name, category, price, "Yes", ""]
             for col_idx, value in enumerate(values, 1):
                 ws.cell(row=row_idx, column=col_idx, value=value)
         for col in [1, 2, 3, 4, 5, 6]:
@@ -440,15 +285,15 @@ def build_recipe_bom(ws):
     product_ref = f"'Products'!$A$2:$F${MAX_PRODUCTS + 1}"
     units_ref = f"'Units'!$A$2:$D${len(UNITS) + 1}"
 
-    sample_lines = []
-    for product_id, recipe_lines in COFFEE_RECIPES.items():
+    initial_lines = []
+    for product_id, recipe_lines in RECIPES.items():
         for item_name, quantity, unit in recipe_lines:
-            sample_lines.append((product_id, ITEM_IDS[item_name], quantity, unit, "Sample data; edit or replace."))
+            initial_lines.append((product_id, ITEM_IDS[item_name], quantity, unit, ""))
 
     for row_idx in range(2, MAX_BOM_LINES + 2):
         ws.cell(row=row_idx, column=1, value=f'=IF(AND(B{row_idx}="",D{row_idx}=""),"",ROW()-1)')
-        if row_idx - 2 < len(sample_lines):
-            product_id, item_id, quantity, unit, note = sample_lines[row_idx - 2]
+        if row_idx - 2 < len(initial_lines):
+            product_id, item_id, quantity, unit, note = initial_lines[row_idx - 2]
             ws.cell(row=row_idx, column=2, value=product_id)
             ws.cell(row=row_idx, column=4, value=item_id)
             ws.cell(row=row_idx, column=6, value=quantity)
