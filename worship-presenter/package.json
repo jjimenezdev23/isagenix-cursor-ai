@@ -4,6 +4,10 @@
   "description": "Worship Presenter 2.0 - an easy, offline-first church presentation app for songs, multi-version Bible, and YouTube worship media.",
   "author": "Church Local",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jjimenezdev23/isagenix-cursor-ai.git"
+  },
   "main": "./out/main/index.js",
   "scripts": {
     "dev": "electron-vite dev",
@@ -12,10 +16,10 @@
     "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
     "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
     "typecheck": "npm run typecheck:node && npm run typecheck:web",
-    "dist": "electron-vite build && electron-builder",
-    "dist:win": "electron-vite build && electron-builder --win",
-    "dist:linux": "electron-vite build && electron-builder --linux",
-    "dist:mac": "electron-vite build && electron-builder --mac"
+    "dist": "electron-vite build && electron-builder --publish never",
+    "dist:win": "electron-vite build && electron-builder --win --publish never",
+    "dist:linux": "electron-vite build && electron-builder --linux --publish never",
+    "dist:mac": "electron-vite build && electron-builder --mac --publish never"
   },
   "dependencies": {
     "zustand": "^4.5.4"
