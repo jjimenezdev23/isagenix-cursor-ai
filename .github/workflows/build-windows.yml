@@ -1,0 +1,61 @@
+name: Build Windows app
+
+# Builds the Worship Presenter Windows 11 installer on a real Windows machine
+# and uploads it so you can download it. You can start it manually from the
+# GitHub "Actions" tab, and it also runs on pushes to the app branch and on
+# version tags (v1.0.0, v2.0.1, ...), where it also attaches the installer to a
+# GitHub Release.
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - 'cursor/worship-presenter-app-9988'
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: worship-presenter
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: worship-presenter/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Build and package Windows installer
+        run: npm run dist:win
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload installer as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: worship-presenter-windows
+          path: |
+            worship-presenter/release/*.exe
+          if-no-files-found: error
+
+      - name: Attach installer to Release (tags only)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: worship-presenter/release/*.exe
