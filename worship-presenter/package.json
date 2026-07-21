@@ -37,14 +37,30 @@
     "appId": "org.church.worshippresenter",
     "productName": "Worship Presenter",
     "directories": {
-      "output": "release"
+      "output": "release",
+      "buildResources": "resources"
     },
     "files": [
       "out/**/*",
       "resources/**/*"
     ],
     "win": {
-      "target": "nsis"
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ],
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Worship Presenter"
+    },
+    "portable": {
+      "artifactName": "${productName}-Portable-${version}.${ext}"
     },
     "mac": {
       "target": "dmg"

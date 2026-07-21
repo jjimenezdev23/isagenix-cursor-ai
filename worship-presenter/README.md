@@ -31,6 +31,27 @@ Bible passages you have already opened) is stored on the machine and works with 
 - **Fast keyboard control** — `Space`/`→` next, `←` previous, `Enter` go live, `B` black,
   `C` clear, `L` logo.
 
+## Get the Windows 11 app (easiest — no developer tools)
+
+GitHub builds the Windows installer for you automatically. To download it:
+
+1. Open the repository on GitHub and click the **Actions** tab.
+2. Choose the **“Build Windows app”** workflow on the left. If you don't see a finished run,
+   click **Run workflow** (top right) and pick this branch, then wait a few minutes for it to
+   finish (green check).
+3. Open the finished run and scroll to **Artifacts** at the bottom.
+4. Download **`worship-presenter-windows`** (a `.zip`). Inside you get two files:
+   - **`Worship Presenter-Setup-2.0.0.exe`** — the normal installer (creates Start Menu + desktop
+     shortcuts).
+   - **`Worship Presenter-Portable-2.0.0.exe`** — a portable version that runs without installing
+     (handy for a USB stick).
+5. Copy the `.exe` to the church computer and run it. On Windows 11 you may see a
+   **“Windows protected your PC”** SmartScreen notice (because the app isn't code-signed) — click
+   **More info → Run anyway**. This is expected for in-house apps.
+
+> Tip: to publish a downloadable **Release**, push a tag like `v2.0.0` and the same workflow will
+> attach the installers to a GitHub Release automatically.
+
 ## Getting started (development)
 
 Requirements: **Node.js 18+** (tested on Node 22).
